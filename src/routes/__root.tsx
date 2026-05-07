@@ -10,10 +10,10 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <div className="text-xs uppercase tracking-[0.4em] gold-text mb-6">Noctis</div>
-        <h1 className="font-display text-7xl text-ivory">404</h1>
-        <p className="mt-4 text-sm text-muted-foreground">This page slipped away in the dark.</p>
-        <Link to="/" className="mt-8 inline-block px-6 py-3 text-xs uppercase tracking-[0.25em] bg-primary text-primary-foreground hover:bg-primary/90">Back to the entrance</Link>
+        <div className="text-xs uppercase tracking-[0.4em] text-primary mb-6">Dreamscape</div>
+        <h1 className="font-display text-7xl text-white">404</h1>
+        <p className="mt-4 text-sm text-muted-foreground">This fantasy has slipped away.</p>
+        <Link to="/" className="mt-8 inline-block px-10 py-4 neon-button">Back to Reality</Link>
       </div>
     </div>
   );
@@ -25,9 +25,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="font-display text-3xl text-ivory">Something stirred in the shadows.</h1>
+        <h1 className="font-display text-3xl text-white">Something shifted in the Dreamscape.</h1>
         <p className="mt-3 text-sm text-muted-foreground">{error.message}</p>
-        <button onClick={() => { router.invalidate(); reset(); }} className="mt-8 px-6 py-3 text-xs uppercase tracking-[0.25em] bg-primary text-primary-foreground">Try again</button>
+        <button onClick={() => { router.invalidate(); reset(); }} className="mt-8 px-10 py-4 neon-button">Try again</button>
       </div>
     </div>
   );
@@ -38,11 +38,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Noctis — Cinematic AI Companions" },
-      { name: "description", content: "A luxe AI companionship platform. Slow conversation, beautiful presence, mature themes. 18+." },
+      { title: "Dreamscape — Your AI Fantasy" },
+      { name: "description", content: "The most realistic AI companionship platform. Private, high-fidelity, and incredibly real. 18+." },
       { name: "theme-color", content: "#020202" },
-      { property: "og:title", content: "Noctis — Cinematic AI Companions" },
-      { property: "og:description", content: "A luxe AI companionship platform crafted for grown-ups." },
+      { property: "og:title", content: "Dreamscape — Your AI Fantasy" },
+      { property: "og:description", content: "Meet the girl of your dreams in high-fidelity AI realism." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

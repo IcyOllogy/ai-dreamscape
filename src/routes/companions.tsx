@@ -1,15 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
 import { companions, type Personality } from "@/data/companions";
+import { Heart, MessageCircle, Search, SlidersHorizontal } from "lucide-react";
 
 export const Route = createFileRoute("/companions")({
   head: () => ({
     meta: [
-      { title: "The Gallery — Noctis" },
+      { title: "The Gallery — Dreamscape" },
       { name: "description", content: "Twenty-four AI companions, each with their own voice, mood, and story. Browse the gallery." },
-      { property: "og:title", content: "The Gallery — Noctis" },
+      { property: "og:title", content: "The Gallery — Dreamscape" },
       { property: "og:description", content: "Twenty-four AI companions. Browse the gallery." },
     ],
   }),
@@ -19,25 +18,17 @@ export const Route = createFileRoute("/companions")({
 const personalities: ("All" | Personality)[] = ["All", "Flirty", "Caring", "Mysterious", "Playful", "Dominant", "Intellectual"];
 
 function Gallery() {
-  const [filter, setFilter] = useState<typeof personalities[number]>("All");
-  const [query, setQuery] = useState("");
-  const filtered = useMemo(() => {
-    return companions.filter(c => {
-      if (filter !== "All" && c.personality !== filter) return false;
-      if (query && !(`${c.name} ${c.tagline} ${c.origin}`.toLowerCase().includes(query.toLowerCase()))) return false;
-      return true;
-    });
-function Companions() {
   const [filter, setFilter] = useState<string>("All");
   const [search, setSearch] = useState("");
 
-  const categories = ["All", "Flirty", "Caring", "Mysterious", "Playful", "Dominant"];
-
-  const filtered = companions.filter((c) => {
-    const matchesFilter = filter === "All" || c.personality === filter;
-    const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
+  const filtered = useMemo(() => {
+    return companions.filter((c) => {
+      const matchesFilter = filter === "All" || c.personality === filter;
+      const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase()) || 
+                            c.tagline.toLowerCase().includes(search.toLowerCase());
+      return matchesFilter && matchesSearch;
+    });
+  }, [filter, search]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -68,7 +59,7 @@ function Companions() {
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {categories.map((cat) => (
+            {personalities.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}

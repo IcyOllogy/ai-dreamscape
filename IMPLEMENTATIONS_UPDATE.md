@@ -2,61 +2,46 @@
 
 This document tracks the progress of the total front-end overhaul of the AI Dreamscape platform. The goal is to move from a "grainy website" to a "premium, high-engagement AI app" with a younger, more arousing aesthetic.
 
-## Completed Milestones
+## Sequential Roadmap
 
-### 1. Global Design System (v2)
-- [x] **Seductive Neon Theme**: Implemented Magenta (`#FF1B6B`) to Purple (`#A855F7`) gradients.
-- [x] **Pure Obsidian Foundation**: Set background to `#020202` for maximum contrast.
-- [x] **Typography Overhaul**: Replaced all serif fonts with `Outfit` (Bold/ExtraBold).
-- [x] **Glassmorphism Layer**: Added `backdrop-blur-2xl` utilities for a premium "app" feel.
-- [x] **Removed Grain**: Deleted the old cinematic grain overlay.
+### Phase 1: Foundation & Design System (CRITICAL FIXES)
+- [x] **Restore Design System**: Recreate `src/styles.css` with Tailwind 4 definitions for `.neon-text`, `.glass-panel`, `.shadow-neon`, and `.neon-button`.
+- [x] **Fix Asset Pathing**: Correct image imports in `src/data/companions.ts` from `@/assets/realistic/` to `@/assets/companions/`.
+- [x] **Global Branding**: Update `__root.tsx` to replace "Noctis" with "Dreamscape" in meta tags, titles, and 404/Error components.
 
-### 2. Navigation & Architecture
-- [x] **App-Like Sidebar**: Created a persistent left-hand navigation for desktop.
-- [x] **Mobile Bottom Bar**: Implemented a thumb-friendly bottom navigation for mobile users.
-- [x] **Global Shell Integration**: Integrated the new navigation into the root route.
+### Phase 2: Navigation & Gallery
+- [x] **Unified Navigation**: Remove `SiteHeader` and `SiteFooter` from all pages; ensure they use the global `<Navigation />` from `__root.tsx`.
+- [x] **Fix Gallery Syntax**: Resolve the duplicate/unclosed function error in `src/routes/companions.tsx`.
+- [x] **Gallery Styling**: Apply glassmorphic tabs and neon pulse effects to character cards in the gallery.
 
-### 3. Companion Roster (Data Overhaul)
-- [x] **Younger Roster**: Rewrote all 24 companion profiles to ages 20–24.
-- [x] **Modern Archetypes**: Shifted from "cinematic" to "modern/sexual" archetypes (E-girl, Playful Student, etc.).
-- [x] **Direct Bios**: Refined all descriptions to be more arousing and engagement-focused.
-- [x] **Asset Pathing**: Updated image imports to reflect the new realistic structure.
+### Phase 3: Immersive Chat Experience
+- [ ] **Chat Redesign**: Update `chat.tsx` to use the neon/glassmorphic "app" style. Remove all "gold-text" and "Noctis" references.
+- [ ] **Session Sync**: Ensure `chat.tsx` uses `dreamscape-chat-id` to match the profile page triggers.
+- [ ] **Typing Animations**: Add subtle neon pulse to the typing indicator.
 
-### 4. Page Redesigns
-- [x] **Landing Page**: New immersive hero section and dense vertical character grid.
-- [x] **Companions Gallery**: New filtering system with glassmorphic tabs and portrait cards.
-- [x] **Character Profiles**: Implemented full-height immersive layouts for individual companions.
-
----
-
-## Remaining Roadmap & Checklist
-
-### Phase 2: Core Platform UX
-- [ ] **Chat Interface Redesign**: Update `chat.tsx` to match the neon/glassmorphic "app" aesthetic.
-- [ ] **Pricing Page**: Redesign pricing cards to look like premium "Membership" tiers.
-- [ ] **Auth Pages**: Update Login/Signup to use the new glassmorphic panel style.
-
-### Phase 3: Asset Finalization
-- [ ] **Hero Asset**: Upload a high-resolution, younger, arousing lead character image.
-- [ ] **Companion Assets**: Replace the 24 placeholders with high-fidelity realistic portraits.
-- [ ] **Thumbnail Optimization**: Ensure all portrait cards use optimized `2:3` aspect ratios.
-
-### Phase 4: Polish & Interaction
-- [ ] **Micro-animations**: Add subtle "glow" transitions and a "neon pulse" on hover for all character cards.
+### Phase 4: Profiles & Interactions
+- [x] **Character Roster**: (Data verified) Ages 20–24, modern archetypes (E-girl, Playful Student, etc.).
 - [ ] **Affinity System**: Implement a visual progress bar on profiles showing "Intimacy Levels."
-- [ ] **Loading States**: Create branded "Dreamscape" skeletons for better perceived performance.
+- [ ] **'More Like Her'**: Add a "Similar Characters" carousel at the bottom of profile pages.
 
-### Phase 5: Psychological Hooks & Privacy
-- [ ] **Similar Characters**: Add a "More Like Her" carousel at the bottom of profile pages.
+### Phase 5: Auth & Account UX
+- [ ] **Glassmorphic Auth**: Redesign Login and Signup pages to use the central glassmorphic panel style.
+- [ ] **Branding Update**: Remove "Noctis" references from Login/Signup screens.
+
+### Phase 6: Pricing & Premium Membership
+- [ ] **Membership Tiers**: Redesign `pricing.tsx` to look like premium cards (Whisper, Intimate, Devotion) with neon accents instead of gold.
+- [ ] **Mobile Optimization**: Ensure pricing cards stack perfectly on mobile with thumb-friendly buttons.
+
+### Phase 7: Polish & Psychological Hooks
+- [ ] **Micro-animations**: Add "glow" transitions for all character cards on hover.
 - [ ] **Quick Chat**: Add a direct "Chat Now" overlay button on gallery cards (hover state).
-- [ ] **Privacy 'Boss Key'**: Implement a one-click "Quick Exit" button that hides the site immediately.
-- [ ] **Exclusive Badges**: Add high-contrast neon badges for "New" or "Trending" characters.
+- [ ] **Privacy 'Boss Key'**: Implement a one-click "Quick Exit" button.
 
 ---
 
-## Technical Notes for Future Agents
+## Technical Specs
 - **Primary Color**: `#FF1B6B` (Magenta)
 - **Secondary Color**: `#A855F7` (Purple)
+- **Background**: `#020202` (Pure Obsidian)
 - **Primary Font**: `Outfit`
-- **Navigation**: Desktop Sidebar (`256px`), Mobile Bottom Bar (`64px`).
-- **Aspect Ratio**: Always use `aspect-[2/3]` for character portraits.
+- **Aspect Ratio**: `aspect-[2/3]` for all portraits.

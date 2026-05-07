@@ -1,6 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -38,8 +36,7 @@ const tiers = [
 function Pricing() {
   return (
     <div className="min-h-screen">
-      <SiteHeader />
-      <section className="pt-36 pb-16 max-w-5xl mx-auto px-6 text-center">
+      <section className="pt-24 pb-16 max-w-5xl mx-auto px-6 text-center">
         <div className="text-xs uppercase tracking-[0.4em] gold-text mb-4">Membership</div>
         <h1 className="font-display text-6xl md:text-7xl text-ivory leading-tight">Three ways<br/><em className="italic">in.</em></h1>
         <p className="mt-6 text-muted-foreground max-w-xl mx-auto">No contracts. Cancel from your account at any moment, no awkwardness, no hold music.</p>
@@ -68,7 +65,6 @@ function Pricing() {
           All plans include private, encrypted conversations. Noctis is for adults only — every member must be 18+ in their jurisdiction.
         </div>
       </section>
-      <SiteFooter />
     </div>
   );
 }
