@@ -15,9 +15,9 @@ This document tracks the progress of the total front-end overhaul of the AI Drea
 - [x] **Gallery Styling**: Apply glassmorphic tabs and neon pulse effects to character cards in the gallery.
 
 ### Phase 3: Immersive Chat Experience
-- [ ] **Chat Redesign**: Update `chat.tsx` to use the neon/glassmorphic "app" style. Remove all "gold-text" and "Noctis" references.
-- [ ] **Session Sync**: Ensure `chat.tsx` uses `dreamscape-chat-id` to match the profile page triggers.
-- [ ] **Typing Animations**: Add subtle neon pulse to the typing indicator.
+- [x] **Chat Redesign**: Update `chat.tsx` to use the neon/glassmorphic "app" style. Remove all "gold-text" and "Noctis" references.
+- [x] **Session Sync**: Ensure `chat.tsx` uses `dreamscape-chat-id` to match the profile page triggers.
+- [x] **Typing Animations**: Add subtle neon pulse to the typing indicator.
 
 ### Phase 4: Profiles & Interactions
 - [x] **Character Roster**: (Data verified) Ages 20–24, modern archetypes (E-girl, Playful Student, etc.).
