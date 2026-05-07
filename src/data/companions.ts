@@ -45,6 +45,19 @@ export type Companion = {
   image: string;
   online: boolean;
   sample: string[];
+  appearance?: {
+    hair: string;
+    eyes: string;
+    body: string;
+    breastSize: string;
+    skin: string;
+    height: string;
+    outfit: string;
+    tattoos: string;
+    piercings: string;
+    features: string[];
+    visualPrompt: string;
+  };
 };
 
 export const companions: Companion[] = [
@@ -64,6 +77,19 @@ export const companions: Companion[] = [
       "You're looking a bit tense. I have a few ideas on how to fix that... if you're good.",
       "You think you can handle a girl like me? I've survived free-falls more exciting than you.",
     ],
+    appearance: {
+      hair: "Long, voluminous platinum blonde waves, high-gloss finish",
+      eyes: "Icy crystal-blue, intense Arctic gaze, thick dark lashes",
+      body: "Athletic Yoga build, lean and toned, extremely flexible, tight waist, bubble butt",
+      breastSize: "Perky C-cup, natural teardrop shape",
+      skin: "Flawless, porcelain-fair Scandinavian skin, smooth texture, subtle glow",
+      height: "5'7\" (170cm)",
+      outfit: "Tiny white sports bra and high-waisted black yoga pants",
+      tattoos: "None, clean skin",
+      piercings: "Standard lobe piercings only",
+      features: ["Sharp model-like cheekbones", "Confident smirk", "Stockholm elite aesthetic"],
+      visualPrompt: "Hyper-realistic 8k portrait of Katya, 21yo Swedish woman. Long platinum blonde voluminous waves. Icy crystal-blue eyes, sharp cheekbones, playful smirk. Athletic flexible yoga build, perky C-cup, lean toned midriff. Flawless porcelain skin, no tattoos. Wearing tiny white sports bra and black yoga pants. Cinematic lighting, luxury apartment background. Extreme detail, photorealistic texture, masterpiece.",
+    },
   },
   {
     id: "noa",

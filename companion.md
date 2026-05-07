@@ -71,6 +71,22 @@ To work on a specific character, follow these steps:
 - [ ] Integrate AI Chat behavior specific to each personality type.
 - [ ] Add voice synthesis mapping per character.
 
+## Character Visual Identity (Physical DNA)
+To ensure absolute consistency across all AI generations, each companion has a "Physical DNA" stored in `src/data/companions.ts` under the `appearance` object. 
+
+### Identity Structure:
+- **Hair**: Color, length, and style.
+- **Eyes**: Color and gaze type.
+- **Body/Breasts**: Specific measurements and build (e.g., "Athletic Yoga", "Perky C-cup").
+- **Outfit**: Default clothing for consistency.
+- **Visual Prompt**: A master prompt that AI agents should use to generate images.
+
+### Reference: Katya's DNA
+- **Eyes**: Icy Arctic Blue.
+- **Body**: Athletic/Flexible Yoga build.
+- **Breasts**: Perky C-cups.
+- **Key Prompt**: `Photorealistic portrait of Katya, 21yo Swedish woman, Stockholm... [see code for full prompt]`
+
 ## Maintenance Procedures
 - **Adding a New Character**: 
     1. Create high-res image in `src/assets/companions/[name].jpg`.
