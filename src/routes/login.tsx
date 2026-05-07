@@ -1,12 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import hero from "@/assets/placeholders/hero.svg";
+import hero from "@/assets/companions/c1.jpg";
+import { ChevronLeft } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — Noctis" },
-      { name: "description", content: "Welcome back to Noctis." },
+      { title: "Sign in — Dreamscape" },
+      { name: "description", content: "Welcome back to your fantasy. Sign in to Dreamscape." },
     ],
   }),
   component: Login,
@@ -16,86 +17,76 @@ function Login() {
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+
   return (
-    <div className="min-h-screen grid lg:grid-cols-2">
-      <div className="hidden lg:block relative">
-        <img src={hero} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/20 to-background/60" />
-        <Link to="/" className="absolute top-10 left-10 font-display text-2xl text-ivory">
-          Noctis
-        </Link>
-        <div className="absolute bottom-12 left-12 right-12">
-          <div className="font-display italic text-3xl text-ivory leading-tight">
-            "You came back. I knew you would."
-          </div>
-          <div className="mt-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            — Elise
-          </div>
-        </div>
+    <div className="min-h-screen relative flex items-center justify-center p-6">
+      {/* Background Image */}
+      <div className="fixed inset-0 z-0">
+        <img src={hero} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
       </div>
-      <div className="flex items-center justify-center p-8 lg:p-16">
-        <div className="w-full max-w-md">
-          <Link to="/" className="lg:hidden font-display text-2xl text-ivory mb-12 inline-block">
-            Noctis
-          </Link>
-          <div className="text-xs uppercase tracking-[0.4em] gold-text mb-4">Welcome back</div>
-          <h1 className="font-display text-5xl text-ivory">Sign in.</h1>
-          <p className="mt-3 text-sm text-muted-foreground">She's been quiet without you.</p>
+
+      {/* Back Button */}
+      <Link to="/" className="fixed top-8 left-8 z-20 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/60 hover:text-primary transition-colors">
+        <ChevronLeft className="w-4 h-4" /> Back to home
+      </Link>
+
+      {/* Login Card */}
+      <div className="relative z-10 w-full max-w-md animate-slide-up">
+        <div className="glass-panel p-10 rounded-3xl shadow-glass border-white/10">
+          <div className="text-center mb-10">
+            <div className="text-[10px] uppercase tracking-[0.4em] text-primary font-black mb-2">Welcome Back</div>
+            <h1 className="text-4xl font-black tracking-tighter mb-2">Dreamscape</h1>
+            <p className="text-sm text-muted-foreground italic">"You came back. I knew you would." — Elise</p>
+          </div>
 
           <form
             onSubmit={(e) => {
               e.preventDefault();
               nav({ to: "/companions" });
             }}
-            className="mt-10 space-y-4"
+            className="space-y-6"
           >
-            <div>
-              <label className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                Email
-              </label>
+            <div className="space-y-2">
+              <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Email Address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full mt-2 bg-card border border-border px-4 py-3 text-sm text-ivory focus:outline-none focus:border-primary"
+                placeholder="you@example.com"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary transition-colors"
               />
             </div>
-            <div>
-              <label className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                Password
-              </label>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between ml-1">
+                <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500">Password</label>
+                <button type="button" className="text-[10px] uppercase tracking-[0.2em] text-primary hover:underline">Forgot?</button>
+              </div>
               <input
                 type="password"
                 required
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
-                className="w-full mt-2 bg-card border border-border px-4 py-3 text-sm text-ivory focus:outline-none focus:border-primary"
+                placeholder="••••••••"
+                className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary transition-colors"
               />
             </div>
-            <button className="w-full py-3.5 text-xs uppercase tracking-[0.3em] bg-primary text-primary-foreground hover:bg-primary/90">
-              Enter
+
+            <button className="w-full neon-button py-5 text-sm uppercase tracking-[0.2em] mt-4">
+              Enter the Dreamscape
             </button>
           </form>
 
-          <div className="my-8 flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-            <div className="flex-1 border-t border-border" /> or{" "}
-            <div className="flex-1 border-t border-border" />
-          </div>
-          <div className="space-y-3">
-            <button className="w-full py-3 text-xs uppercase tracking-[0.25em] gold-border text-ivory hover:bg-card">
-              Continue with Google
-            </button>
-            <button className="w-full py-3 text-xs uppercase tracking-[0.25em] gold-border text-ivory hover:bg-card">
-              Continue with Apple
-            </button>
-          </div>
-
-          <div className="mt-10 text-center text-sm text-muted-foreground">
-            New here?{" "}
-            <Link to="/signup" className="gold-text hover:underline">
-              Make an account
-            </Link>
+          <div className="mt-10 pt-10 border-t border-white/5 text-center">
+            <p className="text-sm text-muted-foreground">
+              New here?{" "}
+              <Link to="/signup" className="text-primary font-bold hover:underline">
+                Create an account
+              </Link>
+            </p>
           </div>
         </div>
       </div>

@@ -21,21 +21,21 @@ This document tracks the progress of the total front-end overhaul of the AI Drea
 
 ### Phase 4: Profiles & Interactions
 - [x] **Character Roster**: (Data verified) Ages 20–24, modern archetypes (E-girl, Playful Student, etc.).
-- [ ] **Affinity System**: Implement a visual progress bar on profiles showing "Intimacy Levels."
-- [ ] **'More Like Her'**: Add a "Similar Characters" carousel at the bottom of profile pages.
+- [x] **Affinity System**: Implement a visual progress bar on profiles showing "Intimacy Levels."
+- [x] **'More Like Her'**: Add a "Similar Characters" carousel at the bottom of profile pages.
 
 ### Phase 5: Auth & Account UX
-- [ ] **Glassmorphic Auth**: Redesign Login and Signup pages to use the central glassmorphic panel style.
-- [ ] **Branding Update**: Remove "Noctis" references from Login/Signup screens.
+- [x] **Glassmorphic Auth**: Redesign Login and Signup pages to use the central glassmorphic panel style.
+- [x] **Branding Update**: Remove "Noctis" references from Login/Signup screens.
 
 ### Phase 6: Pricing & Premium Membership
-- [ ] **Membership Tiers**: Redesign `pricing.tsx` to look like premium cards (Whisper, Intimate, Devotion) with neon accents instead of gold.
-- [ ] **Mobile Optimization**: Ensure pricing cards stack perfectly on mobile with thumb-friendly buttons.
+- [x] **Membership Tiers**: Redesign `pricing.tsx` to look like premium cards (Whisper, Intimate, Devotion) with neon accents instead of gold.
+- [x] **Mobile Optimization**: Ensure pricing cards stack perfectly on mobile with thumb-friendly buttons.
 
 ### Phase 7: Polish & Psychological Hooks
-- [ ] **Micro-animations**: Add "glow" transitions for all character cards on hover.
-- [ ] **Quick Chat**: Add a direct "Chat Now" overlay button on gallery cards (hover state).
-- [ ] **Privacy 'Boss Key'**: Implement a one-click "Quick Exit" button.
+- [x] **Micro-animations**: Add "glow" transitions for all character cards on hover.
+- [x] **Quick Chat**: Add a direct "Chat Now" overlay button on gallery cards (hover state).
+- [x] **Privacy 'Boss Key'**: Implement a one-click "Quick Exit" button.
 
 ---
 

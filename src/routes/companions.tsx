@@ -135,10 +135,17 @@ function Gallery() {
                 </p>
 
                 <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
-                    Chat Now
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary group-hover:neon-text transition-colors">
+                    Begin Chat
                   </span>
-                  <MessageCircle className="w-4 h-4 text-primary" />
+                  <MessageCircle className="w-4 h-4 text-primary group-hover:animate-pulse" />
+                </div>
+              </div>
+
+              {/* Quick Chat Overlay (Top half) */}
+              <div className="absolute inset-x-0 top-0 h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center">
+                <div className="neon-button px-4 py-2 text-[10px] uppercase tracking-widest scale-75 group-hover:scale-100 transition-transform shadow-neon">
+                   Quick Connect
                 </div>
               </div>
             </Link>

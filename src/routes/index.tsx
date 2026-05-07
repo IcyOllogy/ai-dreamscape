@@ -105,20 +105,21 @@ function Index() {
                     className={`w-2 h-2 rounded-full ${c.online ? "bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" : "bg-zinc-500"}`}
                   />
                 </div>
-                <p className="text-xs text-zinc-300 line-clamp-1 italic mb-3 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                <p className="text-xs text-zinc-300 line-clamp-1 italic mb-3 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
                   "{c.tagline}"
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-widest text-primary font-bold">
-                    Chat Now
-                  </span>
-                  <div className="h-px flex-1 bg-primary/30" />
+                  <span className="text-[10px] uppercase tracking-widest text-primary font-bold group-hover:neon-text transition-colors">Begin Fantasy</span>
+                  <div className="h-px flex-1 bg-primary/30 group-hover:bg-primary transition-colors" />
                 </div>
               </div>
 
               <div className="absolute top-3 right-3 p-2 rounded-full glass-panel opacity-0 group-hover:opacity-100 transition-opacity">
                 <Heart className="w-4 h-4 text-white group-hover:text-primary transition-colors" />
               </div>
+              
+              {/* Card Glow Effect */}
+              <div className="absolute inset-0 border border-primary/0 group-hover:border-primary/30 rounded-2xl transition-colors pointer-events-none" />
             </Link>
           ))}
         </div>

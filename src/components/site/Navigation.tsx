@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { MessageSquare, Users, CreditCard, LogIn, Heart, Home } from "lucide-react";
+import { MessageSquare, Users, CreditCard, LogIn, Heart, Home, ShieldAlert } from "lucide-react";
 
 const navItems = [
   { label: "Home", icon: Home, to: "/" },
@@ -9,6 +9,10 @@ const navItems = [
 ];
 
 export function Navigation() {
+  const handleQuickExit = () => {
+    window.location.href = "https://www.google.com";
+  };
+
   return (
     <>
       {/* Sidebar - Desktop */}
@@ -38,7 +42,16 @@ export function Navigation() {
           ))}
         </nav>
 
-        <div className="p-4 mt-auto border-t border-white/5">
+        <div className="p-4 mt-auto space-y-2 border-t border-white/5">
+          <button
+            onClick={handleQuickExit}
+            className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-red-500/10 transition-colors group text-zinc-500 hover:text-red-400"
+            title="Quick Exit (Boss Key)"
+          >
+            <ShieldAlert className="w-6 h-6" />
+            <span className="font-bold text-[10px] uppercase tracking-widest hidden lg:block">Quick Exit</span>
+          </button>
+          
           <Link
             to="/login"
             className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors group text-muted-foreground hover:text-white"
@@ -62,6 +75,13 @@ export function Navigation() {
             <span className="text-[10px] font-medium">{item.label}</span>
           </Link>
         ))}
+        <button
+          onClick={handleQuickExit}
+          className="flex flex-col items-center gap-1 text-zinc-500"
+        >
+          <ShieldAlert className="w-5 h-5" />
+          <span className="text-[10px] font-medium italic">Exit</span>
+        </button>
       </nav>
     </>
   );
