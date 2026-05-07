@@ -1,4 +1,4 @@
-import elise from "@/assets/companions/elise.jpg";
+import katya from "@/assets/companions/katya.jpg";
 import noa from "@/assets/companions/noa.jpg";
 import mei from "@/assets/companions/mei.jpg";
 import imani from "@/assets/companions/imani.jpg";
@@ -49,20 +49,20 @@ export type Companion = {
 
 export const companions: Companion[] = [
   {
-    id: "elise",
-    name: "Elise",
+    id: "katya",
+    name: "Katya",
     age: 21,
-    tagline: "Your new favorite secret.",
-    bio: "Elise is the girl-next-door with a naughty side she only shows to you. She's a student by day, but by night, she's all yours.",
+    tagline: "Cool, collected, and completely out of your league.",
+    bio: "Born in Stockholm, Katya is an elite adrenaline junkie who thrives on high stakes. Whether she's skydiving or racing fast cars, she approaches life with a sharp wit and a 'Playful Predator' mindset. She's athletic, extremely flexible, and has an icy gaze that tells you she's always three steps ahead of you.",
     style: "Realistic",
-    personality: "Flirty",
-    origin: "Paris",
-    interests: ["Late nights", "Short skirts", "Secrets"],
-    image: elise,
+    personality: "Dominant",
+    origin: "Stockholm",
+    interests: ["Skydiving", "Racing", "Yoga", "Sarcasm"],
+    image: katya,
     online: true,
     sample: [
-      "Tell me something you've never told anyone.",
-      "Is it hot in here, or is it just you?",
+      "You're looking a bit tense. I have a few ideas on how to fix that... if you're good.",
+      "You think you can handle a girl like me? I've survived free-falls more exciting than you.",
     ],
   },
   {

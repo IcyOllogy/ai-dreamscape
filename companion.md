@@ -30,7 +30,7 @@ Images are stored in `src/assets/companions/`.
 
 | ID | Name | Style | Personality |
 | :--- | :--- | :--- | :--- |
-| `elise` | Elise | Realistic | Flirty |
+| `katya` | Katya | Realistic | Dominant |
 | `noa` | Noa | Realistic | Playful |
 | `mei` | Mei | Realistic | Caring |
 | `imani` | Imani | Realistic | Dominant |
