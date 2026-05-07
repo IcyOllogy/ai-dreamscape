@@ -26,9 +26,11 @@ src/routes/
 ```
 
 ### 1. Age-gate (18+)
+
 Full-screen modal on first visit, blurred backdrop, "Enter" / "Leave" choice, persisted in `localStorage`. Cinematic copy, gold-bordered card.
 
 ### 2. Landing (`/`)
+
 - Sticky transparent nav (logo, Companions, Pricing, Login, "Enter" CTA)
 - **Hero**: full-bleed cinematic portrait, oversized serif headline ("She's waiting."), subhead, dual CTAs, scroll cue
 - **Marquee** of companion names/tags scrolling slowly
@@ -41,24 +43,29 @@ Full-screen modal on first visit, blurred backdrop, "Enter" / "Leave" choice, pe
 - Footer with disclaimers, 18+ badge, fake legal links
 
 ### 3. Companions gallery (`/companions`)
+
 - Header with search + filter chips: Style (Realistic / Anime / Artistic), Personality (Flirty / Caring / Dominant / Playful / Mysterious), Body type, Ethnicity, Age range
 - 24 hand-crafted personas (name, tagline, tags, image, "online" status)
 - Responsive masonry/grid, hover lifts a soft caption
 - Click → detail route
 
 ### 4. Companion detail (`/companions/:id`)
+
 Full-bleed portrait left, bio/personality/interests right, sample dialogue snippets, "Start chat" CTA → `/chat?id=...`
 
 ### 5. Chat mockup (`/chat`)
+
 - Left rail: companion list with online dots
 - Center: message thread (pre-seeded conversation), typing indicator animation, gold-trimmed input bar with mic / image / gift icons
 - Right rail: companion profile card, mood, memory pills
 - Input is functional (echoes locally, fake "typing…" then canned reply) — purely client-side, no API
 
 ### 6. Pricing (`/pricing`)
+
 3 tiers — Whisper (Free), Intimate ($/mo), Devotion ($/mo annual). Featured middle card with gold border + glow. Feature comparison table below. Mock "Subscribe" buttons → `/signup`.
 
 ### 7. Auth (`/login`, `/signup`)
+
 Split-screen: cinematic image left, minimalist form right. Email + password inputs, social buttons (Google/Apple — visual only), legal microcopy. No real auth — submit just navigates to `/companions`.
 
 ## Technical notes

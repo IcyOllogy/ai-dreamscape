@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/* Global tokens + lightweight component utilities.
+   Keep components using semantic classes (glass/neon/gold) instead of raw hex. */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+
+    /* Core palette */
+    --background: 0 0% 1%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --border: 0 0% 12%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
+
+    /* Neon theme (targets from IMPLEMENTATIONS_UPDATE.md) */
+    --primary: 343 100% 55%; /* #FF1B6B */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 267 92% 66%; /* #A855F7 */
+    --secondary-foreground: 0 0% 100%;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    font-family:
+      Outfit,
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      Arial,
+      "Noto Sans",
+      "Liberation Sans",
+      sans-serif;
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  /* Semantic color helpers (used throughout the routes/components) */
+  .bg-background {
+    background-color: hsl(var(--background));
+  }
+  .text-foreground {
+    color: hsl(var(--foreground));
+  }
+  .bg-card {
+    background-color: hsl(var(--card));
+  }
+  .text-muted-foreground {
+    color: hsl(var(--muted-foreground));
+  }
+  .border-border {
+    border-color: hsl(var(--border));
+  }
+  .text-primary {
+    color: hsl(var(--primary));
+  }
+  .bg-primary {
+    background-color: hsl(var(--primary));
+  }
+  .text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+  }
+  .bg-secondary {
+    background-color: hsl(var(--secondary));
+  }
+
+  /* Brand + UI primitives */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(24px);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(22px);
+  }
+
+  .neon-text {
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+      0 0 22px rgba(255, 27, 107, 0.25),
+      0 0 26px rgba(168, 85, 247, 0.22);
+  }
+
+  .shadow-neon {
+    box-shadow:
+      0 0 0 1px rgba(255, 27, 107, 0.25),
+      0 10px 40px rgba(255, 27, 107, 0.18),
+      0 10px 50px rgba(168, 85, 247, 0.12);
+  }
+
+  .neon-button {
+    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    color: hsl(var(--primary-foreground));
+    border-radius: 9999px;
+    font-weight: 700;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 18px 60px rgba(255, 27, 107, 0.18);
+    transition:
+      transform 180ms ease,
+      filter 180ms ease,
+      box-shadow 180ms ease;
+  }
+  .neon-button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 22px 70px rgba(255, 27, 107, 0.24);
+  }
+
+  .gold-text {
+    color: hsl(var(--secondary));
+  }
+
+  .gold-border {
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    box-shadow: 0 0 0 1px rgba(255, 27, 107, 0.1) inset;
+    border-radius: 9999px;
+  }
+
+  .glow-gold {
+    box-shadow:
+      0 0 0 1px rgba(168, 85, 247, 0.18),
+      0 20px 80px rgba(168, 85, 247, 0.14);
+  }
+
+  /* Animations referenced by pages */
+  @keyframes pulseSoft {
+    0%,
+    100% {
+      transform: scale(1.05);
+      opacity: 0.55;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 0.7;
+    }
+  }
+  .animate-pulse-soft {
+    animation: pulseSoft 5.5s ease-in-out infinite;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-slide-up {
+    animation: slideUp 600ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .animate-fade-in {
+    animation: fadeIn 220ms ease both;
+  }
+
+  @keyframes typingDot {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+  }
+  .typing-dot {
+    animation: typingDot 900ms ease-in-out infinite;
+  }
+
+  /* Misc quality-of-life */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
