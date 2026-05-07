@@ -18,7 +18,9 @@ export function Navigation() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-neon">
               <Heart className="w-5 h-5 text-white" />
             </div>
-            <span className="font-bold text-xl tracking-tight hidden lg:block neon-text">Dreamscape</span>
+            <span className="font-bold text-xl tracking-tight hidden lg:block neon-text">
+              Dreamscape
+            </span>
           </Link>
         </div>
 

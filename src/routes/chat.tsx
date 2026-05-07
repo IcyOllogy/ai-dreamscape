@@ -36,13 +36,15 @@ function ChatPage() {
     try {
       const stored = sessionStorage.getItem("dreamscape-chat-id");
       if (stored && findCompanion(stored)) setActiveId(stored);
-    } catch {}
+    } catch {
+      // ignore (e.g. storage disabled)
+    }
   }, []);
 
   const active = useMemo(() => findCompanion(activeId)!, [activeId]);
 
   useEffect(() => {
-    setMessages(prev => {
+    setMessages((prev) => {
       if (prev[activeId]) return prev;
       return {
         ...prev,
@@ -62,7 +64,7 @@ function ChatPage() {
     const text = input.trim();
     if (!text) return;
     setInput("");
-    setMessages(prev => ({
+    setMessages((prev) => ({
       ...prev,
       [activeId]: [...(prev[activeId] ?? []), { from: "me", text, t: Date.now() }],
     }));
@@ -70,7 +72,7 @@ function ChatPage() {
     const delay = 800 + Math.random() * 1400;
     setTimeout(() => {
       const reply = replies[Math.floor(Math.random() * replies.length)];
-      setMessages(prev => ({
+      setMessages((prev) => ({
         ...prev,
         [activeId]: [...(prev[activeId] ?? []), { from: "her", text: reply, t: Date.now() }],
       }));
@@ -89,9 +91,9 @@ function ChatPage() {
           </div>
           <div className="flex-1 overflow-y-auto scrollbar-hide">
             {companions.map(c => (
-              <button 
-                key={c.id} 
-                onClick={() => { setActiveId(c.id); }} 
+              <button
+                key={c.id}
+                onClick={() => { setActiveId(c.id); }}
                 className={`w-full text-left flex items-center gap-3 p-4 border-b border-white/5 transition-all ${activeId === c.id ? "bg-primary/10 border-l-4 border-l-primary" : "hover:bg-white/5"}`}
               >
                 <div className="relative w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden">
@@ -111,7 +113,7 @@ function ChatPage() {
         <main className="flex flex-col relative h-full">
           <header className="px-6 py-4 glass-panel border-b flex items-center gap-4 z-10">
             <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 lg:hidden">
-               <img src={active.image} alt={active.name} className="w-full h-full object-cover" />
+              <img src={active.image} alt={active.name} className="w-full h-full object-cover" />
             </div>
             <div className="flex-1">
               <div className="font-black text-xl tracking-tight">{active.name}</div>
@@ -159,8 +161,8 @@ function ChatPage() {
               <button className="p-3 hover:text-primary transition-colors rounded-xl hover:bg-white/5"><Plus className="w-5 h-5" /></button>
               <input
                 value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && send()}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && send()}
                 placeholder={`Message ${active.name}…`}
                 className="flex-1 bg-transparent border-0 outline-none text-sm px-2 py-3"
               />

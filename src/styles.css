@@ -6,7 +6,7 @@
   --color-background: #020202;
   --color-card: rgba(255, 255, 255, 0.05);
   --color-border: rgba(255, 255, 255, 0.1);
-  
+
   --font-display: "Outfit", sans-serif;
   --font-sans: "Inter", sans-serif;
 
@@ -32,7 +32,8 @@
   }
 
   .neon-button:hover {
-    @apply scale-105; box-shadow: 0 0 30px rgba(255, 27, 107, 0.5);
+    @apply scale-105;
+    box-shadow: 0 0 30px rgba(255, 27, 107, 0.5);
   }
 
   .glass-panel {
@@ -52,8 +53,15 @@
   }
 
   @keyframes pulse-soft {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 0.8; }
+
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+
+    50% {
+      opacity: 0.8;
+    }
   }
 
   .animate-slide-up {
@@ -61,7 +69,14 @@
   }
 
   @keyframes slide-up {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
