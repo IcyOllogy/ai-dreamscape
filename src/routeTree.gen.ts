@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CompanionsRouteImport } from './routes/companions'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanionsIdRouteImport } from './routes/companions.$id'
 
 const CompanionsRoute = CompanionsRouteImport.update({
   id: '/companions',
   path: '/companions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,30 +37,34 @@ const CompanionsIdRoute = CompanionsIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
   '/companions': typeof CompanionsRouteWithChildren
   '/companions/$id': typeof CompanionsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
   '/companions': typeof CompanionsRouteWithChildren
   '/companions/$id': typeof CompanionsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
   '/companions': typeof CompanionsRouteWithChildren
   '/companions/$id': typeof CompanionsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/companions' | '/companions/$id'
+  fullPaths: '/' | '/chat' | '/companions' | '/companions/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/companions' | '/companions/$id'
-  id: '__root__' | '/' | '/companions' | '/companions/$id'
+  to: '/' | '/chat' | '/companions' | '/companions/$id'
+  id: '__root__' | '/' | '/chat' | '/companions' | '/companions/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChatRoute: typeof ChatRoute
   CompanionsRoute: typeof CompanionsRouteWithChildren
 }
 
@@ -65,6 +75,13 @@ declare module '@tanstack/react-router' {
       path: '/companions'
       fullPath: '/companions'
       preLoaderRoute: typeof CompanionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -98,6 +115,7 @@ const CompanionsRouteWithChildren = CompanionsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChatRoute: ChatRoute,
   CompanionsRoute: CompanionsRouteWithChildren,
 }
 export const routeTree = rootRouteImport

@@ -63,7 +63,11 @@ function CompanionDetail() {
           </div>
 
           <div className="mt-12 flex flex-wrap gap-4">
-            <Link to="/chat" search={{ id: c.id }} className="px-8 py-4 text-xs uppercase tracking-[0.3em] bg-primary text-primary-foreground hover:bg-primary/90">Begin a conversation</Link>
+            <Link
+              to="/chat"
+              onClick={() => { try { sessionStorage.setItem("noctis-chat-id", c.id); } catch {} }}
+              className="px-8 py-4 text-xs uppercase tracking-[0.3em] bg-primary text-primary-foreground hover:bg-primary/90"
+            >Begin a conversation</Link>
             <Link to="/companions" className="px-8 py-4 text-xs uppercase tracking-[0.3em] gold-border text-ivory hover:bg-ivory hover:text-background transition-all">More like her</Link>
           </div>
         </div>
