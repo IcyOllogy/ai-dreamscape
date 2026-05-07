@@ -70,20 +70,18 @@ function Gallery() {
 
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {personalities.map((cat) => (
-              {
-                personalities.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setFilter(cat)}
-                    className={`px-6 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${filter === cat
-                        ? "neon-button shadow-neon"
-                        : "glass-card hover:bg-white/10 text-muted-foreground hover:text-white"
-                      }`}
-                  >
-                    {cat}
-                  </button>
-                ))
-              }
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                  filter === cat
+                    ? "neon-button shadow-neon"
+                    : "glass-card hover:bg-white/10 text-muted-foreground hover:text-white"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
         </div>
       </div>

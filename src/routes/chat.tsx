@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { companions, findCompanion, type Companion } from "@/data/companions";
-import { Send, Mic, Plus, MoreVertical, Phone } from "lucide-react";
+import { Send, Mic, Plus, MoreVertical, Phone, Users } from "lucide-react";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -30,6 +30,7 @@ function ChatPage() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Record<string, Msg[]>>({});
   const [typing, setTyping] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ function ChatPage() {
       const stored = sessionStorage.getItem("dreamscape-chat-id");
       if (stored && findCompanion(stored)) setActiveId(stored);
     } catch {
-      // ignore (e.g. storage disabled)
+      // ignore
     }
   }, []);
 
@@ -88,16 +89,21 @@ function ChatPage() {
 
       <div className="flex-1 grid lg:grid-cols-[300px_1fr_350px] h-full relative z-10">
         {/* LEFT — companion list */}
-        <aside className="hidden lg:flex flex-col border-r border-white/5 bg-white/[0.02]">
-          <div className="p-6 border-b border-white/5">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-1">Conversations</h2>
-            <div className="text-2xl font-black tracking-tighter">Dreamscape</div>
+        <aside className={`${showSidebar ? 'flex fixed inset-0 z-50 bg-background lg:relative lg:bg-transparent' : 'hidden'} lg:flex flex-col border-r border-white/5 bg-white/[0.02]`}>
+          <div className="p-6 border-b border-white/5 flex items-center justify-between">
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-1">Conversations</h2>
+              <div className="text-2xl font-black tracking-tighter">Dreamscape</div>
+            </div>
+            {showSidebar && (
+              <button onClick={() => setShowSidebar(false)} className="lg:hidden p-2 text-white/50 hover:text-white">Close</button>
+            )}
           </div>
           <div className="flex-1 overflow-y-auto scrollbar-hide">
             {companions.map(c => (
               <button
                 key={c.id}
-                onClick={() => { setActiveId(c.id); }}
+                onClick={() => { setActiveId(c.id); setShowSidebar(false); }}
                 className={`w-full text-left flex items-center gap-3 p-4 border-b border-white/5 transition-all ${activeId === c.id ? "bg-primary/10 border-l-4 border-l-primary" : "hover:bg-white/5"}`}
               >
                 <div className="relative w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden">
@@ -116,9 +122,12 @@ function ChatPage() {
         {/* CENTER — thread */}
         <main className="flex flex-col relative h-full">
           <header className="px-6 py-4 glass-panel border-b flex items-center gap-4 z-10">
-            <div className="w-10 h-10 rounded-full overflow-hidden border border-white/10 lg:hidden">
-              <img src={active.image} alt={active.name} className="w-full h-full object-cover" />
-            </div>
+            <button 
+              onClick={() => setShowSidebar(true)}
+              className="w-10 h-10 rounded-full overflow-hidden border border-white/10 lg:hidden flex items-center justify-center bg-white/5"
+            >
+               <Users className="w-5 h-5 text-primary" />
+            </button>
             <div className="flex-1">
               <div className="font-black text-xl tracking-tight">{active.name}</div>
               <div className="text-[10px] uppercase font-bold tracking-widest flex items-center gap-2">
