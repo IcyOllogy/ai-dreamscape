@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
 import { findCompanion } from "@/data/companions";
+import { ChevronLeft, MessageSquare, Heart, Shield, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/companions/$id")({
   loader: ({ params }) => {
@@ -11,16 +10,18 @@ export const Route = createFileRoute("/companions/$id")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.companion.name} — Noctis` },
+      { title: `${loaderData?.companion.name} — Dreamscape` },
       { name: "description", content: loaderData?.companion.tagline ?? "" },
-      { property: "og:title", content: `${loaderData?.companion.name} — Noctis` },
-      { property: "og:description", content: loaderData?.companion.tagline ?? "" },
-      { property: "og:image", content: loaderData?.companion.image ?? "" },
     ],
   }),
   errorComponent: ({ error }) => <div className="min-h-screen flex items-center justify-center text-muted-foreground">{error.message}</div>,
   notFoundComponent: () => (
-    <div className="min-h-screen flex items-center justify-center"><div className="text-center"><h1 className="font-display text-5xl text-ivory">She's not here tonight.</h1><Link to="/companions" className="mt-6 inline-block text-xs uppercase tracking-[0.3em] gold-text">Back to gallery</Link></div></div>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-6">She's not here tonight.</h1>
+        <Link to="/companions" className="neon-button px-6 py-3">Back to gallery</Link>
+      </div>
+    </div>
   ),
   component: CompanionDetail,
 });
@@ -28,51 +29,88 @@ export const Route = createFileRoute("/companions/$id")({
 function CompanionDetail() {
   const { companion: c } = Route.useLoaderData();
   return (
-    <div className="min-h-screen">
-      <SiteHeader />
-      <section className="pt-20 grid lg:grid-cols-2 min-h-screen">
-        <div className="relative h-[60vh] lg:h-auto overflow-hidden">
-          <img src={c.image} alt={c.name} className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/30 to-transparent lg:bg-none" />
-          <div className="absolute bottom-6 left-6 lg:hidden">
-            {c.online && <span className="text-[10px] uppercase tracking-wider gold-text">● Online now</span>}
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <section className="grid lg:grid-cols-2 min-h-screen">
+        {/* IMAGE SIDE */}
+        <div className="relative h-[70vh] lg:h-screen sticky top-0 overflow-hidden">
+          <img src={c.image} alt={c.name} className="absolute inset-0 w-full h-full object-cover object-center scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent lg:hidden" />
+          
+          <div className="absolute top-6 left-6 z-20">
+            <Link to="/companions" className="p-3 rounded-full glass-panel hover:text-primary transition-colors inline-flex">
+              <ChevronLeft className="w-6 h-6" />
+            </Link>
+          </div>
+
+          <div className="absolute bottom-10 left-10 hidden lg:block">
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs font-bold ${c.online ? 'text-green-400' : 'text-zinc-400'}`}>
+              <div className={`w-2 h-2 rounded-full ${c.online ? 'bg-green-500 animate-pulse' : 'bg-zinc-500'}`} />
+              <span>{c.online ? 'Available Now' : 'Resting'}</span>
+            </div>
           </div>
         </div>
-        <div className="p-10 lg:p-20 flex flex-col justify-center">
-          <Link to="/companions" className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground hover:text-primary mb-8">← Back to gallery</Link>
-          <div className="text-xs uppercase tracking-[0.4em] gold-text mb-4">{c.origin} · {c.personality}</div>
-          <h1 className="font-display text-6xl md:text-7xl text-ivory leading-none">{c.name}</h1>
-          <div className="mt-3 text-muted-foreground italic font-display text-2xl">"{c.tagline}"</div>
 
-          <p className="mt-10 text-base text-muted-foreground leading-relaxed max-w-lg">{c.bio}</p>
-
-          <div className="mt-10">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-ivory mb-3">Interests</div>
-            <div className="flex flex-wrap gap-2">
-              {c.interests.map((i: string) => <span key={i} className="text-xs px-3 py-1.5 gold-border text-muted-foreground">{i}</span>)}
+        {/* CONTENT SIDE */}
+        <div className="p-6 lg:p-16 flex flex-col justify-center max-w-2xl mx-auto lg:mx-0">
+          <div className="space-y-8 animate-slide-up">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-[0.2em] mb-4">
+                <Sparkles className="w-3 h-3" />
+                <span>{c.personality} · {c.origin}</span>
+              </div>
+              <h1 className="text-6xl lg:text-8xl font-black tracking-tighter mb-4">{c.name}, {c.age}</h1>
+              <p className="text-2xl italic text-muted-foreground font-medium tracking-tight">"{c.tagline}"</p>
             </div>
-          </div>
 
-          <div className="mt-10">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-ivory mb-4">A few things she might say</div>
-            <div className="space-y-3">
-              {c.sample.map((s: string, i: number) => (
-                <div key={i} className="border-l-2 border-primary pl-4 italic font-display text-xl text-ivory">"{s}"</div>
-              ))}
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500">About {c.name}</h3>
+              <p className="text-lg text-zinc-300 leading-relaxed">{c.bio}</p>
             </div>
-          </div>
 
-          <div className="mt-12 flex flex-wrap gap-4">
-            <Link
-              to="/chat"
-              onClick={() => { try { sessionStorage.setItem("noctis-chat-id", c.id); } catch {} }}
-              className="px-8 py-4 text-xs uppercase tracking-[0.3em] bg-primary text-primary-foreground hover:bg-primary/90"
-            >Begin a conversation</Link>
-            <Link to="/companions" className="px-8 py-4 text-xs uppercase tracking-[0.3em] gold-border text-ivory hover:bg-ivory hover:text-background transition-all">More like her</Link>
+            <div className="grid grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500">Her Interests</h3>
+                <div className="flex flex-wrap gap-2">
+                  {c.interests.map((i) => (
+                    <span key={i} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium">{i}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500">Security</h3>
+                <div className="flex items-center gap-2 text-green-500/80 text-xs font-bold">
+                  <Shield className="w-4 h-4" />
+                  <span>Private Session Enabled</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-zinc-500">Hot Openers</h3>
+              <div className="space-y-3">
+                {c.sample.map((s, i) => (
+                  <div key={i} className="p-4 rounded-2xl glass-card text-lg italic text-white/90 border-l-4 border-primary">
+                    "{s}"
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 pt-6">
+              <Link
+                to="/chat"
+                onClick={() => { try { sessionStorage.setItem("dreamscape-chat-id", c.id); } catch {} }}
+                className="neon-button flex-1 py-5 text-lg flex items-center justify-center gap-3"
+              >
+                <MessageSquare className="w-5 h-5 fill-current" /> Begin Conversation
+              </Link>
+              <button className="p-5 rounded-full glass-card hover:text-primary transition-colors">
+                <Heart className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
-      <SiteFooter />
     </div>
   );
 }

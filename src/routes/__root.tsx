@@ -4,6 +4,7 @@ import {
 } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
 import { AgeGate } from "@/components/site/AgeGate";
+import { Navigation } from "@/components/site/Navigation";
 
 function NotFoundComponent() {
   return (
@@ -39,7 +40,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Noctis — Cinematic AI Companions" },
       { name: "description", content: "A luxe AI companionship platform. Slow conversation, beautiful presence, mature themes. 18+." },
-      { name: "theme-color", content: "#1a1612" },
+      { name: "theme-color", content: "#020202" },
       { property: "og:title", content: "Noctis — Cinematic AI Companions" },
       { property: "og:description", content: "A luxe AI companionship platform crafted for grown-ups." },
       { property: "og:type", content: "website" },
@@ -49,7 +50,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -62,8 +63,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
       <head><HeadContent /></head>
-      <body className="grain">
-        {children}
+      <body>
+        <Navigation />
+        <main className="md:pl-20 lg:pl-64 pb-16 md:pb-0">
+          {children}
+        </main>
         <Scripts />
       </body>
     </html>

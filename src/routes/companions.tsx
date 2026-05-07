@@ -27,50 +27,126 @@ function Gallery() {
       if (query && !(`${c.name} ${c.tagline} ${c.origin}`.toLowerCase().includes(query.toLowerCase()))) return false;
       return true;
     });
-  }, [filter, query]);
+function Companions() {
+  const [filter, setFilter] = useState<string>("All");
+  const [search, setSearch] = useState("");
+
+  const categories = ["All", "Flirty", "Caring", "Mysterious", "Playful", "Dominant"];
+
+  const filtered = companions.filter((c) => {
+    const matchesFilter = filter === "All" || c.personality === filter;
+    const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   return (
-    <div className="min-h-screen">
-      <SiteHeader />
-      <section className="pt-36 pb-12 max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="text-xs uppercase tracking-[0.4em] gold-text mb-4">The Gallery</div>
-        <h1 className="font-display text-6xl md:text-7xl text-ivory leading-tight">Twenty-four<br/><em className="italic">presences.</em></h1>
-        <p className="mt-6 text-muted-foreground max-w-xl">Each companion is hand-written, with a voice and history of her own. Choose by mood, by light, by what your evening needs.</p>
+    <div className="min-h-screen bg-background">
+      {/* HEADER & FILTERS */}
+      <div className="sticky top-0 z-30 glass-panel border-b px-6 lg:px-12 py-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Browse Companions</h1>
+              <p className="text-sm text-muted-foreground mt-1">{companions.length} presences available now</p>
+            </div>
 
-        <div className="mt-12 flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
-          <div className="flex flex-wrap gap-2">
-            {personalities.map(p => (
-              <button key={p} onClick={() => setFilter(p)} className={`px-4 py-2 text-[10px] uppercase tracking-[0.25em] border transition-all ${filter === p ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:text-ivory hover:border-primary/50"}`}>
-                {p}
+            <div className="flex items-center gap-3">
+              <div className="relative flex-1 md:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input 
+                  type="text"
+                  placeholder="Search by name..."
+                  className="w-full pl-10 pr-4 py-2 rounded-full bg-white/5 border border-white/10 focus:border-primary transition-colors text-sm outline-none"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+              <button className="p-2 rounded-full glass-card hover:text-primary transition-colors">
+                <SlidersHorizontal className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                  filter === cat 
+                    ? "neon-button shadow-neon" 
+                    : "glass-card hover:bg-white/10 text-muted-foreground hover:text-white"
+                }`}
+              >
+                {cat}
               </button>
             ))}
           </div>
-          <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search by name or city" className="w-full lg:w-72 bg-card border border-border px-4 py-3 text-sm text-ivory placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary" />
         </div>
-      </section>
+      </div>
 
-      <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-32">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filtered.map((c, i) => (
-            <Link key={c.id} to="/companions/$id" params={{ id: c.id }} className="group relative aspect-[3/4] block overflow-hidden bg-card animate-fade-in" style={{ animationDelay: `${i * 30}ms` }}>
-              <img src={c.image} alt={c.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-              {c.online && <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-background/70 backdrop-blur-sm px-2 py-1 rounded-full"><span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" /><span className="text-[9px] uppercase tracking-wider text-ivory">Online</span></div>}
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="text-[9px] uppercase tracking-[0.3em] gold-text mb-1">{c.origin}</div>
-                <h3 className="font-display text-2xl text-ivory">{c.name}, {c.age}</h3>
-                <p className="text-xs text-muted-foreground italic mt-1 line-clamp-2">{c.tagline}</p>
-                <div className="mt-3 flex flex-wrap gap-1">
-                  <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 gold-border text-primary">{c.personality}</span>
+      {/* GRID */}
+      <div className="px-6 lg:px-12 py-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+          {filtered.map((c) => (
+            <Link 
+              to="/companions/$id" 
+              params={{ id: c.id }} 
+              key={c.id} 
+              className="group relative aspect-[2/3] rounded-3xl overflow-hidden glass-card animate-slide-up"
+            >
+              <img 
+                src={c.image} 
+                alt={c.name} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              />
+              
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-all duration-300" />
+              
+              {/* Online Indicator */}
+              <div className="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 rounded-full glass-panel text-[10px] font-bold">
+                <div className={`w-1.5 h-1.5 rounded-full ${c.online ? 'bg-green-500 animate-pulse' : 'bg-zinc-500'}`} />
+                <span className="uppercase tracking-wider">{c.online ? 'Online' : 'Away'}</span>
+              </div>
+
+              {/* Like Button */}
+              <button className="absolute top-4 right-4 p-2.5 rounded-full glass-panel opacity-0 group-hover:opacity-100 transition-all hover:scale-110">
+                <Heart className="w-4 h-4 text-white hover:text-primary transition-colors" />
+              </button>
+
+              {/* Info */}
+              <div className="absolute bottom-0 inset-x-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <h3 className="text-xl font-bold mb-1">{c.name}, {c.age}</h3>
+                <p className="text-xs text-zinc-400 mb-4 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 italic">
+                  "{c.tagline}"
+                </p>
+                
+                <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Chat Now</span>
+                  <MessageCircle className="w-4 h-4 text-primary" />
                 </div>
               </div>
             </Link>
           ))}
         </div>
-        {filtered.length === 0 && <div className="text-center text-muted-foreground py-20">No one matches that mood tonight.</div>}
-      </section>
 
-      <SiteFooter />
+        {filtered.length === 0 && (
+          <div className="py-32 text-center">
+            <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-6">
+              <Search className="w-8 h-8 text-muted-foreground" />
+            </div>
+            <h3 className="text-xl font-bold">No companions found</h3>
+            <p className="text-muted-foreground mt-2">Try adjusting your filters or search term.</p>
+            <button 
+              onClick={() => { setFilter("All"); setSearch(""); }}
+              className="mt-6 text-primary font-bold hover:underline"
+            >
+              Clear all filters
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
