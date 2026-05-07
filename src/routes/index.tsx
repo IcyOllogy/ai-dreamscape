@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { companions } from "@/data/companions";
 import { ChevronRight, Heart, Play, Shield, Zap } from "lucide-react";
-import hero from "@/assets/placeholders/hero.svg";
+import hero from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
