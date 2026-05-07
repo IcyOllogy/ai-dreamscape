@@ -49,14 +49,14 @@ function CompanionDetail() {
           <div className="mt-10">
             <div className="text-[10px] uppercase tracking-[0.3em] text-ivory mb-3">Interests</div>
             <div className="flex flex-wrap gap-2">
-              {c.interests.map(i => <span key={i} className="text-xs px-3 py-1.5 gold-border text-muted-foreground">{i}</span>)}
+              {c.interests.map((i: string) => <span key={i} className="text-xs px-3 py-1.5 gold-border text-muted-foreground">{i}</span>)}
             </div>
           </div>
 
           <div className="mt-10">
             <div className="text-[10px] uppercase tracking-[0.3em] text-ivory mb-4">A few things she might say</div>
             <div className="space-y-3">
-              {c.sample.map((s, i) => (
+              {c.sample.map((s: string, i: number) => (
                 <div key={i} className="border-l-2 border-primary pl-4 italic font-display text-xl text-ivory">"{s}"</div>
               ))}
             </div>
