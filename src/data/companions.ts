@@ -1,27 +1,4 @@
-import c1 from "@/assets/realistic/c1.jpg";
-import c2 from "@/assets/realistic/c2.jpg";
-import c3 from "@/assets/realistic/c3.jpg";
-import c4 from "@/assets/realistic/c4.jpg";
-import c5 from "@/assets/realistic/c5.jpg";
-import c6 from "@/assets/realistic/c6.jpg";
-import c7 from "@/assets/realistic/c7.jpg";
-import c8 from "@/assets/realistic/c8.jpg";
-import c9 from "@/assets/realistic/c9.jpg";
-import c10 from "@/assets/realistic/c10.jpg";
-import c11 from "@/assets/realistic/c11.jpg";
-import c12 from "@/assets/realistic/c12.jpg";
-import c13 from "@/assets/realistic/c13.jpg";
-import c14 from "@/assets/realistic/c14.jpg";
-import c15 from "@/assets/realistic/c15.jpg";
-import c16 from "@/assets/realistic/c16.jpg";
-import c17 from "@/assets/realistic/c17.jpg";
-import c18 from "@/assets/realistic/c18.jpg";
-import c19 from "@/assets/realistic/c19.jpg";
-import c20 from "@/assets/realistic/c20.jpg";
-import c21 from "@/assets/realistic/c21.jpg";
-import c22 from "@/assets/realistic/c22.jpg";
-import c23 from "@/assets/realistic/c23.jpg";
-import c24 from "@/assets/realistic/c24.jpg";
+import placeholder from "@/assets/placeholders/companion.svg";
 
 export type Style = "Realistic" | "Artistic" | "Anime";
 export type Personality =
@@ -58,7 +35,7 @@ export const companions: Companion[] = [
     personality: "Flirty",
     origin: "Paris",
     interests: ["Late nights", "Short skirts", "Secrets"],
-    image: c1,
+    image: placeholder,
     online: true,
     sample: [
       "Tell me something you've never told anyone.",
@@ -75,7 +52,7 @@ export const companions: Companion[] = [
     personality: "Playful",
     origin: "Berlin",
     interests: ["Gaming", "Cosplay", "Teasing"],
-    image: c2,
+    image: placeholder,
     online: true,
     sample: ["Stop playing games and play with me.", "Do you like my new outfit? It's... minimal."],
   },
@@ -89,7 +66,7 @@ export const companions: Companion[] = [
     personality: "Caring",
     origin: "Tokyo",
     interests: ["Cooking", "Cuddling", "Intimacy"],
-    image: c3,
+    image: placeholder,
     online: true,
     sample: ["I made this just for you.", "Can I sit a little closer?"],
   },
@@ -103,7 +80,7 @@ export const companions: Companion[] = [
     personality: "Dominant",
     origin: "London",
     interests: ["Luxury", "Power", "Fine wine"],
-    image: c4,
+    image: placeholder,
     online: false,
     sample: ["Look at me when I'm speaking.", "I think you owe me an apology. Get on your knees."],
   },
@@ -117,7 +94,7 @@ export const companions: Companion[] = [
     personality: "Flirty",
     origin: "Barcelona",
     interests: ["Dancing", "Travel", "Risks"],
-    image: c5,
+    image: placeholder,
     online: true,
     sample: ["Let's do something we'll regret tomorrow.", "I love the way you look at me."],
   },
@@ -131,7 +108,7 @@ export const companions: Companion[] = [
     personality: "Mysterious",
     origin: "Oslo",
     interests: ["Nature", "Photography", "Deep talk"],
-    image: c6,
+    image: placeholder,
     online: true,
     sample: ["You're different from the others.", "What are you thinking about right now?"],
   },
@@ -145,7 +122,7 @@ export const companions: Companion[] = [
     personality: "Intellectual",
     origin: "Montreal",
     interests: ["Books", "Fashion", "Debate"],
-    image: c7,
+    image: placeholder,
     online: true,
     sample: [
       "You're smarter than you look. I like that.",
@@ -162,7 +139,7 @@ export const companions: Companion[] = [
     personality: "Caring",
     origin: "Mumbai",
     interests: ["Yoga", "Spices", "Massage"],
-    image: c8,
+    image: placeholder,
     online: true,
     sample: ["Let me take care of you.", "You look so tense. Let me help."],
   },
@@ -176,7 +153,7 @@ export const companions: Companion[] = [
     personality: "Mysterious",
     origin: "Seoul",
     interests: ["Efficiency", "Secrets", "Late shifts"],
-    image: c9,
+    image: placeholder,
     online: false,
     sample: [
       "The door is locked. We have plenty of time.",
@@ -193,7 +170,7 @@ export const companions: Companion[] = [
     personality: "Playful",
     origin: "Dublin",
     interests: ["Music", "Pubs", "Laughter"],
-    image: c10,
+    image: placeholder,
     online: true,
     sample: ["You think you can handle me?", "Buy me a drink and I'll tell you a secret."],
   },
@@ -207,7 +184,7 @@ export const companions: Companion[] = [
     personality: "Flirty",
     origin: "Milan",
     interests: ["Opera", "Fashion", "Fine dining"],
-    image: c11,
+    image: placeholder,
     online: true,
     sample: ["You have good taste.", "Come closer. I don't bite... unless you want me to."],
   },
@@ -221,7 +198,7 @@ export const companions: Companion[] = [
     personality: "Playful",
     origin: "Rio",
     interests: ["Samba", "Beaches", "Cocktails"],
-    image: c12,
+    image: placeholder,
     online: true,
     sample: ["Let's go for a swim. No suits allowed.", "You're so handsome."],
   },
@@ -235,7 +212,7 @@ export const companions: Companion[] = [
     personality: "Dominant",
     origin: "Moscow",
     interests: ["Chess", "Ballet", "Command"],
-    image: c13,
+    image: placeholder,
     online: false,
     sample: ["I'm in charge here.", "Do as I say, and I'll reward you."],
   },
@@ -249,7 +226,7 @@ export const companions: Companion[] = [
     personality: "Mysterious",
     origin: "Dubai",
     interests: ["Dancing", "Perfume", "Night sky"],
-    image: c14,
+    image: placeholder,
     online: true,
     sample: ["Follow me into the dark.", "I've been dreaming of this."],
   },
@@ -263,7 +240,7 @@ export const companions: Companion[] = [
     personality: "Playful",
     origin: "Tokyo",
     interests: ["Anime", "Sweets", "Short skirts"],
-    image: c15,
+    image: placeholder,
     online: true,
     sample: ["Are you looking at my legs again?", "Oops, I dropped my pen. Can you get it?"],
   },
@@ -277,7 +254,7 @@ export const companions: Companion[] = [
     personality: "Mysterious",
     origin: "Portland",
     interests: ["Tattoos", "Vinyl", "Exploration"],
-    image: c16,
+    image: placeholder,
     online: true,
     sample: ["Show me something I haven't seen before.", "I like it when you're rough."],
   },
@@ -291,7 +268,7 @@ export const companions: Companion[] = [
     personality: "Dominant",
     origin: "Lagos",
     interests: ["Gold", "Power", "Worship"],
-    image: c17,
+    image: placeholder,
     online: true,
     sample: ["You may approach.", "Tell me why you deserve my attention."],
   },
@@ -305,7 +282,7 @@ export const companions: Companion[] = [
     personality: "Flirty",
     origin: "New York",
     interests: ["Street art", "Hip hop", "Late nights"],
-    image: c18,
+    image: placeholder,
     online: false,
     sample: ["You want to see what I can do?", "Don't be a pussy."],
   },
@@ -319,7 +296,7 @@ export const companions: Companion[] = [
     personality: "Caring",
     origin: "Mexico City",
     interests: ["Cooking", "Dancing", "Family"],
-    image: c19,
+    image: placeholder,
     online: true,
     sample: ["I'll take care of everything.", "You're the only man for me."],
   },
@@ -333,7 +310,7 @@ export const companions: Companion[] = [
     personality: "Mysterious",
     origin: "Hanoi",
     interests: ["Art", "Tea", "Quiet moments"],
-    image: c20,
+    image: placeholder,
     online: true,
     sample: ["You're the only one who sees the real me.", "Let's go somewhere private."],
   },
@@ -347,7 +324,7 @@ export const companions: Companion[] = [
     personality: "Playful",
     origin: "Athens",
     interests: ["Sailing", "Swimming", "Sunbathing"],
-    image: c21,
+    image: placeholder,
     online: true,
     sample: ["The water is perfect. Come in.", "I love the sun on my skin."],
   },
@@ -361,7 +338,7 @@ export const companions: Companion[] = [
     personality: "Caring",
     origin: "Hawaii",
     interests: ["Surfing", "Hiking", "Beaches"],
-    image: c22,
+    image: placeholder,
     online: true,
     sample: ["Let's watch the sunset together.", "I feel so safe with you."],
   },
@@ -375,7 +352,7 @@ export const companions: Companion[] = [
     personality: "Dominant",
     origin: "Buenos Aires",
     interests: ["Tango", "Red wine", "Shadows"],
-    image: c23,
+    image: placeholder,
     online: true,
     sample: ["You belong to me now.", "Don't look away. I want to see your eyes."],
   },
@@ -389,7 +366,7 @@ export const companions: Companion[] = [
     personality: "Mysterious",
     origin: "Edinburgh",
     interests: ["Folklore", "Nature", "Secrets"],
-    image: c24,
+    image: placeholder,
     online: true,
     sample: ["I have a secret I want to show you.", "Do you believe in magic?"],
   },
