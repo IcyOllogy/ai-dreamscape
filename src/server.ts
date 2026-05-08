@@ -1,3 +1,7 @@
+import { initSentryServer } from "./lib/sentry-server";
+
+initSentryServer();
+
 import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";

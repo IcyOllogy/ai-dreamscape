@@ -65,7 +65,14 @@ export function SiteFooter() {
           <div>
             © {new Date().getFullYear()} Noctis Studios. All companions are fictional AI personas.
           </div>
-          <div className="uppercase tracking-[0.25em]">Crafted in the dark</div>
+          <div className="uppercase tracking-[0.25em] flex items-center gap-4">
+            Crafted in the dark
+            <button 
+              onClick={() => { throw new Error("Sentry Test Error"); }}
+              className="w-2 h-2 bg-white/10 rounded-full hover:bg-primary/40 transition-colors"
+              title="Debug Sentry"
+            />
+          </div>
         </div>
       </div>
     </footer>

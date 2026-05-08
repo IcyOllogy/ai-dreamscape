@@ -10,6 +10,8 @@ import {
 import appCss from "../styles.css?url";
 import { AgeGate } from "@/components/site/AgeGate";
 import { Navigation } from "@/components/site/Navigation";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import * as Sentry from "@sentry/react";
 
 function NotFoundComponent() {
   return (
@@ -26,13 +28,18 @@ function NotFoundComponent() {
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
+  const eventId = Sentry.captureException(error);
   const router = useRouter();
+  
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="font-display text-3xl text-white">Something shifted in the Dreamscape.</h1>
         <p className="mt-3 text-sm text-muted-foreground">{error.message}</p>
-        <button onClick={() => { router.invalidate(); reset(); }} className="mt-8 px-10 py-4 neon-button">Try again</button>
+        <div className="mt-8 flex justify-center gap-4">
+          <button onClick={() => { router.invalidate(); reset(); }} className="px-10 py-4 neon-button">Try again</button>
+          <button onClick={() => Sentry.showReportDialog({ eventId })} className="px-6 py-4 border border-primary/50 text-white rounded-md hover:bg-primary/10 transition-colors">Report Bug</button>
+        </div>
       </div>
     </div>
   );
@@ -75,7 +82,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Navigation />
-        <main className="md:pl-20 lg:pl-64 pb-16 md:pb-0">{children}</main>
+        <main className="md:pl-20 lg:pl-64 pb-16 md:pb-0">
+          {children}
+          <SiteFooter />
+        </main>
         <Scripts />
       </body>
     </html>
