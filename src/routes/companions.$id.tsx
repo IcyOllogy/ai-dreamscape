@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { findCompanion, companions } from "@/data/companions";
 import { ChevronLeft, MessageSquare, Heart, Shield, Sparkles, TrendingUp, ChevronRight } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/companions/$id")({
   loader: ({ params }) => {
@@ -35,6 +35,8 @@ export const Route = createFileRoute("/companions/$id")({
 
 function CompanionDetail() {
   const { companion: c } = Route.useLoaderData();
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const images = c.gallery && c.gallery.length > 0 ? c.gallery : [c.image];
 
   const similar = useMemo(() => {
     return companions
@@ -46,13 +48,48 @@ function CompanionDetail() {
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <section className="grid lg:grid-cols-2 min-h-screen border-b border-white/5">
         {/* IMAGE SIDE */}
-        <div className="relative h-[70vh] lg:h-screen sticky top-0 overflow-hidden">
-          <img
-            src={c.image}
-            alt={c.name}
-            className="absolute inset-0 w-full h-full object-cover object-center scale-105"
-          />
+        <div className="relative h-[70vh] lg:h-screen sticky top-0 overflow-hidden group">
+          {images.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt={`${c.name} - image ${idx + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ${
+                idx === activeImageIndex ? "opacity-100 scale-100" : "opacity-0 scale-105"
+              }`}
+            />
+          ))}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent lg:hidden" />
+
+          {/* GALLERY NAVIGATION */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={() => setActiveImageIndex((prev) => (prev - 1 + images.length) % images.length)}
+                className="absolute left-6 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full glass-panel opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => setActiveImageIndex((prev) => (prev + 1) % images.length)}
+                className="absolute right-6 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full glass-panel opacity-0 group-hover:opacity-100 transition-opacity hover:text-primary"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              
+              <div className="absolute bottom-10 inset-x-0 flex justify-center gap-2 z-30">
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`h-1.5 transition-all duration-300 rounded-full ${
+                      idx === activeImageIndex ? "w-8 bg-primary shadow-neon" : "w-2 bg-white/20"
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
 
           <div className="absolute top-6 left-6 z-20">
             <Link

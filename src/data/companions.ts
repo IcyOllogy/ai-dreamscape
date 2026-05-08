@@ -1,4 +1,5 @@
 import katya from "@/assets/companions/katya.jpg";
+import katya2 from "@/assets/companions/katya2.jpg";
 import noa from "@/assets/companions/noa.jpg";
 import mei from "@/assets/companions/mei.jpg";
 import imani from "@/assets/companions/imani.jpg";
@@ -43,6 +44,7 @@ export type Companion = {
   origin: string;
   interests: string[];
   image: string;
+  gallery?: string[];
   online: boolean;
   sample: string[];
   appearance?: {
@@ -72,6 +74,7 @@ export const companions: Companion[] = [
     origin: "Stockholm",
     interests: ["Skydiving", "Racing", "Yoga", "Sarcasm"],
     image: katya,
+    gallery: [katya, katya2],
     online: true,
     sample: [
       "You're looking a bit tense. I have a few ideas on how to fix that... if you're good.",

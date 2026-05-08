@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as CompanionsRouteImport } from './routes/companions'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CompanionsIndexRouteImport } from './routes/companions.index'
 import { Route as CompanionsIdRouteImport } from './routes/companions.$id'
 
 const SignupRoute = SignupRouteImport.update({
@@ -47,6 +48,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompanionsIndexRoute = CompanionsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CompanionsRoute,
+} as any)
 const CompanionsIdRoute = CompanionsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -61,15 +67,16 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
   '/companions/$id': typeof CompanionsIdRoute
+  '/companions/': typeof CompanionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/chat': typeof ChatRoute
-  '/companions': typeof CompanionsRouteWithChildren
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
   '/companions/$id': typeof CompanionsIdRoute
+  '/companions': typeof CompanionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +87,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
   '/companions/$id': typeof CompanionsIdRoute
+  '/companions/': typeof CompanionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,15 +99,16 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/signup'
     | '/companions/$id'
+    | '/companions/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/chat'
-    | '/companions'
     | '/login'
     | '/pricing'
     | '/signup'
     | '/companions/$id'
+    | '/companions'
   id:
     | '__root__'
     | '/'
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/signup'
     | '/companions/$id'
+    | '/companions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/companions/': {
+      id: '/companions/'
+      path: '/'
+      fullPath: '/companions/'
+      preLoaderRoute: typeof CompanionsIndexRouteImport
+      parentRoute: typeof CompanionsRoute
+    }
     '/companions/$id': {
       id: '/companions/$id'
       path: '/$id'
@@ -176,10 +193,12 @@ declare module '@tanstack/react-router' {
 
 interface CompanionsRouteChildren {
   CompanionsIdRoute: typeof CompanionsIdRoute
+  CompanionsIndexRoute: typeof CompanionsIndexRoute
 }
 
 const CompanionsRouteChildren: CompanionsRouteChildren = {
   CompanionsIdRoute: CompanionsIdRoute,
+  CompanionsIndexRoute: CompanionsIndexRoute,
 }
 
 const CompanionsRouteWithChildren = CompanionsRoute._addFileChildren(

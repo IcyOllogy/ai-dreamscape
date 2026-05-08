@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import hero from "@/assets/companions/c1.jpg";
+import hero from "@/assets/companions/katya.jpg";
 import { ChevronLeft } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
@@ -38,7 +38,7 @@ function Login() {
           <div className="text-center mb-10">
             <div className="text-[10px] uppercase tracking-[0.4em] text-primary font-black mb-2">Welcome Back</div>
             <h1 className="text-4xl font-black tracking-tighter mb-2">Dreamscape</h1>
-            <p className="text-sm text-muted-foreground italic">"You came back. I knew you would." — Elise</p>
+            <p className="text-sm text-muted-foreground italic">"You came back. I knew you would." — Katya</p>
           </div>
 
           <form

@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const featured = ["elise", "noa", "valeria", "giulia", "yumi", "luana"];
+const featured = ["katya", "noa", "valeria", "giulia", "yumi", "luana"];
 
 function Index() {
   const featuredCompanions = featured.map((id) => companions.find((c) => c.id === id)!);

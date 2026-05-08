@@ -26,7 +26,7 @@ const replies = [
 ];
 
 function ChatPage() {
-  const [activeId, setActiveId] = useState<string>("elise");
+  const [activeId, setActiveId] = useState<string>("katya");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Record<string, Msg[]>>({});
   const [typing, setTyping] = useState(false);
