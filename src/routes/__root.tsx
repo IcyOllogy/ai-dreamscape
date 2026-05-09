@@ -14,6 +14,8 @@ import { Navigation } from "@/components/site/Navigation";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import * as Sentry from "@sentry/react";
 import { useAuth, Profile } from "@/hooks/useAuth";
+import { AppLayout } from "@/components/layout/AppLayout";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -120,11 +122,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AgeGate />
-      <Navigation />
-      <main className="md:pl-20 lg:pl-64 pb-16 md:pb-0 min-h-screen">
+      <Toaster position="top-left" expand={true} richColors closeButton />
+      <AppLayout>
         <Outlet context={{ auth }} />
-        <SiteFooter />
-      </main>
+      </AppLayout>
     </QueryClientProvider>
   );
 }

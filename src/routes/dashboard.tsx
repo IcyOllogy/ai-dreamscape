@@ -11,7 +11,7 @@ export const Route = createFileRoute("/dashboard")({
 
 function DashboardLayout() {
   return (
-    <div className="min-h-screen bg-background">
+    <div>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">
         <header className="mb-12">
           <div className="text-[10px] uppercase tracking-[0.4em] text-primary font-black mb-2">Member Portal</div>
