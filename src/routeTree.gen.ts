@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -33,6 +34,11 @@ const UnauthorizedRoute = UnauthorizedRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/admin/pricing': typeof AdminPricingRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/chat': typeof ChatRoute
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/admin/pricing': typeof AdminPricingRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
+  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
   '/unauthorized': typeof UnauthorizedRoute
   '/admin/pricing': typeof AdminPricingRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/pricing'
+    | '/profile'
     | '/signup'
     | '/unauthorized'
     | '/admin/pricing'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/chat'
     | '/login'
     | '/pricing'
+    | '/profile'
     | '/signup'
     | '/unauthorized'
     | '/admin/pricing'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/pricing'
+    | '/profile'
     | '/signup'
     | '/unauthorized'
     | '/admin/pricing'
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren
   LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
+  ProfileRoute: typeof ProfileRoute
   SignupRoute: typeof SignupRoute
   UnauthorizedRoute: typeof UnauthorizedRoute
 }
@@ -227,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -371,6 +391,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
   LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
+  ProfileRoute: ProfileRoute,
   SignupRoute: SignupRoute,
   UnauthorizedRoute: UnauthorizedRoute,
 }
