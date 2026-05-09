@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -12,6 +13,7 @@ import { AgeGate } from "@/components/site/AgeGate";
 import { Navigation } from "@/components/site/Navigation";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import * as Sentry from "@sentry/react";
+import { useAuth, Profile } from "@/hooks/useAuth";
 
 function NotFoundComponent() {
   return (
@@ -45,7 +47,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-import { useAuth, Profile } from "@/hooks/useAuth";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -91,11 +92,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Navigation />
-        <main className="md:pl-20 lg:pl-64 pb-16 md:pb-0">
-          {children}
-          <SiteFooter />
-        </main>
+        {children}
         <Scripts />
       </body>
     </html>
@@ -105,11 +102,29 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const auth = useAuth();
+  const router = useRouter();
+
+  // Sync auth state to router context so beforeLoad guards can use it
+  useEffect(() => {
+    router.update({
+      context: {
+        ...router.options.context,
+        auth: {
+          profile: auth.profile,
+          loading: auth.loading,
+        },
+      },
+    } as any);
+  }, [auth.profile, auth.loading, router]);
   
   return (
     <QueryClientProvider client={queryClient}>
       <AgeGate />
-      <Outlet context={{ auth }} />
+      <Navigation />
+      <main className="md:pl-20 lg:pl-64 pb-16 md:pb-0 min-h-screen">
+        <Outlet context={{ auth }} />
+        <SiteFooter />
+      </main>
     </QueryClientProvider>
   );
 }

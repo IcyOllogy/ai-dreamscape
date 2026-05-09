@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { MessageSquare, Users, CreditCard, LogIn, Heart, Home, ShieldAlert, LayoutDashboard, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
