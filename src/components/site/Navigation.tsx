@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import { MessageSquare, Users, CreditCard, LogIn, Heart, Home, ShieldAlert } from "lucide-react";
+import { MessageSquare, Users, CreditCard, LogIn, Heart, Home, ShieldAlert, LayoutDashboard, Shield } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { label: "Home", icon: Home, to: "/" },
@@ -9,9 +9,17 @@ const navItems = [
 ];
 
 export function Navigation() {
+  const { profile, signOut } = useAuth();
+  
   const handleQuickExit = () => {
     window.location.href = "https://www.google.com";
   };
+
+  const dynamicItems = [
+    ...navItems,
+    ...(profile ? [{ label: "Dashboard", icon: LayoutDashboard, to: "/dashboard" }] : []),
+    ...(profile?.role === 'admin' ? [{ label: "Admin", icon: Shield, to: "/admin" }] : []),
+  ];
 
   return (
     <>
@@ -29,7 +37,7 @@ export function Navigation() {
         </div>
 
         <nav className="flex-1 px-4 space-y-2 mt-4">
-          {navItems.map((item) => (
+          {dynamicItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -52,19 +60,29 @@ export function Navigation() {
             <span className="font-bold text-[10px] uppercase tracking-widest hidden lg:block">Quick Exit</span>
           </button>
           
-          <Link
-            to="/login"
-            className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors group text-muted-foreground hover:text-white"
-          >
-            <LogIn className="w-6 h-6" />
-            <span className="font-medium hidden lg:block">Sign in</span>
-          </Link>
+          {profile ? (
+            <button
+              onClick={() => signOut()}
+              className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors group text-muted-foreground hover:text-white"
+            >
+              <LogIn className="w-6 h-6 rotate-180" />
+              <span className="font-medium hidden lg:block">Sign out</span>
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors group text-muted-foreground hover:text-white"
+            >
+              <LogIn className="w-6 h-6" />
+              <span className="font-medium hidden lg:block">Sign in</span>
+            </Link>
+          )}
         </div>
       </aside>
 
       {/* Bottom Bar - Mobile */}
       <nav className="fixed bottom-0 inset-x-0 h-16 glass-panel border-t md:hidden flex items-center justify-around px-4 z-50">
-        {navItems.map((item) => (
+        {dynamicItems.map((item) => (
           <Link
             key={item.to}
             to={item.to}

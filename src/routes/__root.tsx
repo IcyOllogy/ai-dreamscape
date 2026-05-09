@@ -45,7 +45,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+import { useAuth, Profile } from "@/hooks/useAuth";
+
+interface MyRouterContext {
+  queryClient: QueryClient;
+  auth: {
+    profile: Profile | null;
+    loading: boolean;
+  };
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -94,10 +104,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const auth = useAuth();
+  
   return (
     <QueryClientProvider client={queryClient}>
       <AgeGate />
-      <Outlet />
+      <Outlet context={{ auth }} />
     </QueryClientProvider>
   );
 }
