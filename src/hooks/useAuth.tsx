@@ -1,0 +1,137 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
+import { User, Session } from '@supabase/supabase-js';
+
+export type UserRole = 'free_member' | 'member' | 'pro_member' | 'vip_member' | 'admin';
+
+export interface Profile {
+  id: string;
+  username: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  role: UserRole;
+  tokens_balance: number;
+  is_banned: boolean;
+  created_at: string;
+}
+
+export function useAuth() {
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
+        setLoading(false);
+      }
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchProfile(session.user.id);
+      } else {
+        setProfile(null);
+        setLoading(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function fetchProfile(userId: string) {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error) throw error;
+      
+      let avatarUrl = data.avatar_url;
+      
+      // If it's a storage path (e.g. "avatars/uid/image.png"), generate a signed URL
+      if (avatarUrl && !avatarUrl.startsWith('http')) {
+        const { data: signedData, error: signedError } = await supabase.storage
+          .from('avatars')
+          .createSignedUrl(avatarUrl, 3600); // 1 hour expiry
+        
+        if (!signedError) {
+          avatarUrl = signedData.signedUrl;
+        }
+      }
+
+      setProfile({ ...(data as Profile), avatar_url: avatarUrl });
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function uploadAvatar(file: File) {
+    try {
+      if (!user) throw new Error('No user logged in');
+      
+      const fileExt = file.name.split('.').pop();
+      const fileName = `avatar.${fileExt}`;
+      const filePath = `${user.id}/${fileName}`;
+
+      // Upload file to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      // Update profile with the STORAGE PATH (not the signed URL)
+      // The fetchProfile function will resolve this path later
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: filePath })
+        .eq('id', user.id);
+
+      if (updateError) throw updateError;
+
+      await fetchProfile(user.id);
+      return { success: true };
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      return { success: false, error };
+    }
+  }
+
+  async function updateProfile(updates: Partial<Profile>) {
+    try {
+      if (!user) throw new Error('No user logged in');
+      
+      const { error } = await supabase
+        .from('profiles')
+        .update(updates)
+        .eq('id', user.id);
+
+      if (error) throw error;
+      
+      // Refresh profile state
+      await fetchProfile(user.id);
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      return { success: false, error };
+    }
+  }
+
+  const signOut = () => supabase.auth.signOut();
+
+  return { session, user, profile, loading, signOut, updateProfile, uploadAvatar };
+}

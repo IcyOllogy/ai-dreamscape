@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import hero from "@/assets/companions/katya.jpg";
 import { ChevronLeft } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -42,9 +43,30 @@ function Login() {
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              nav({ to: "/companions" });
+              const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password: pw,
+              });
+
+              if (error) {
+                alert(error.message);
+                return;
+              }
+
+              // Fetch profile to check role
+              const { data: profile } = await supabase
+                .from("profiles")
+                .select("role")
+                .eq("id", data.user?.id)
+                .single();
+
+              if (profile?.role === "admin") {
+                nav({ to: "/admin" });
+              } else {
+                nav({ to: "/dashboard" });
+              }
             }}
             className="space-y-6"
           >
