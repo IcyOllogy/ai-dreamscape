@@ -109,11 +109,11 @@ We will formalize the current aesthetics into a central design guide and impleme
 - [x] Create database migrations and RLS policies.
 - [x] Implement Login/Signup pages with redirection logic.
 
-### Phase 1.5: User Profiles & Navigation UX
-- Create the Profile page (`/profile`) for all users.
-- Replace "Dashboard" button with a Profile dropdown (Avatar + Placeholder).
-- Dropdown options: **Profile** and **Log Out**.
-- Integrate profile picture (avatar_url) into the navbar.
+### Phase 1.5: User Profiles & Navigation UX [COMPLETED]
+- [x] Create the Profile page (`/profile`) for all users.
+- [x] Replace "Dashboard" button with a Profile dropdown (Avatar + Placeholder).
+- [x] Dropdown options: **Profile** and **Log Out**.
+- [x] Integrate profile picture (avatar_url) into the navbar.
 
 ### Phase 2: Core Layout & Design System
 - Build the `AppSidebar` and `DashboardLayout`.
