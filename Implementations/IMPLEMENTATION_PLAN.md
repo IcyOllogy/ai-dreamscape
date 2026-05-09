@@ -120,10 +120,12 @@ We will formalize the current aesthetics into a central design guide and impleme
 - [x] Configure top-left toasts.
 - [x] Refactor existing routes to use the new layout.
 
-### Phase 3: Client Dashboard
-- Implement Profile (`/@username`) and Settings pages.
-- Build the "Membership Hub" and "Privacy & Security" sections.
-- Create the Image Collection and infrastructure for future generation.
+### Phase 3: Client Dashboard & Personalization [COMPLETED]
+- [x] Implement Handle-based Routing (`/@username`).
+- [x] Apply 30-Day Handle Change Policy via Postgres Trigger.
+- [x] Build "Private by Default" Generation Tracking (`user_assets`).
+- [x] Create Settings Hub (Account, Bio, Verification Badge).
+- [x] Build Membership Dashboard (Token Pulse, Usage Metrics).
 
 ### Phase 4: Admin Dashboard
 - Implement the Admin metrics view (Revenue/DAU).

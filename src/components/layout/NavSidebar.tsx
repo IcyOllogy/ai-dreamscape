@@ -9,7 +9,9 @@ import {
   Settings, 
   ShieldCheck, 
   Users, 
+  User,
   BarChart3,
+  Sparkles,
   X
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -42,8 +44,9 @@ export function NavSidebar({ isOpen, onClose }: NavSidebarProps) {
     {
       title: "Account",
       items: [
-        { label: "Tokens", icon: CreditCard, to: "/pricing" },
-        { label: "Settings", icon: "/settings" }, // Placeholder if settings route doesn't exist yet
+        { label: "My Profile", icon: User, to: "/profile" },
+        { label: "Membership", icon: Sparkles, to: "/membership" },
+        { label: "Settings", icon: Settings, to: "/settings" },
       ]
     }
   ];

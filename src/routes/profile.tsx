@@ -10,14 +10,33 @@ import { toast } from 'sonner';
 import { Shield, Coins, User as UserIcon, Loader2, Camera, Upload } from 'lucide-react';
 import { useRef } from 'react';
 
+import { Navigate } from '@tanstack/react-router';
+
 export const Route = createFileRoute('/profile')({
-  beforeLoad: ({ context }) => {
-    if (!context.auth.loading && !context.auth.profile) {
-      throw redirect({ to: '/login' });
-    }
-  },
-  component: ProfilePage,
+  component: ProfileRedirect,
 });
+
+function ProfileRedirect() {
+  const { profile, loading } = useAuth();
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
+  }
+
+  if (!profile) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!profile.username) {
+    // If user has no username, they need to set one in settings
+    setTimeout(() => {
+      toast.error('Please set a unique handle first');
+    }, 100);
+    return <Navigate to="/settings" />;
+  }
+
+  return <Navigate to="/$username" params={{ username: `@${profile.username}` }} />;
+}
 
 function ProfilePage() {
   const { profile, updateProfile, uploadAvatar, user } = useAuth();

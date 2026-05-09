@@ -42,12 +42,11 @@ export function AppLayout({ children }: AppLayoutProps) {
       </div>
 
       {/* Main Content Area */}
-      <main 
-        className={`transition-all duration-500 ease-in-out pb-20 md:pb-0 ${
-          isSidebarOpen ? 'md:pl-[312px]' : 'md:pl-[72px]'
-        }`}
-      >
-        <div className="relative z-10 min-h-screen">
+      <main className={`
+        min-h-screen transition-all duration-500 ease-in-out pb-20 md:pb-0
+        ${isSidebarOpen ? 'md:pl-[312px]' : 'md:pl-[72px]'}
+      `}>
+        <div className="relative z-10 w-full h-full min-h-screen">
           {children}
         </div>
       </main>

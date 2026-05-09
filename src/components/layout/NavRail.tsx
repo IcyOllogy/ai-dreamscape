@@ -32,7 +32,7 @@ export function NavRail({ onToggleSidebar, isSidebarOpen }: NavRailProps) {
     : profile?.username?.substring(0, 2).toUpperCase() || '??';
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-[--sidebar-rail-width] glass-rail z-[100] flex flex-col items-center py-6">
+    <aside className="fixed left-0 top-0 bottom-0 w-[72px] glass-rail z-[100] flex flex-col items-center py-6">
       <div className="rail-edge-glow" />
       {/* Top: Menu Toggle */}
       <button 
@@ -72,11 +72,10 @@ export function NavRail({ onToggleSidebar, isSidebarOpen }: NavRailProps) {
         {profile ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="relative group outline-none">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
-                <Avatar className="h-10 w-10 border border-white/20 relative cursor-pointer hover:scale-105 transition-transform">
+              <button className="relative group outline-none rounded-full ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                <Avatar className="h-10 w-10 border border-white/20 bg-black cursor-pointer transition-all duration-300 group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(255,27,107,0.5)]">
                   <AvatarImage src={profile.avatar_url || ''} />
-                  <AvatarFallback className="bg-background text-primary font-bold text-xs">
+                  <AvatarFallback className="bg-black text-primary font-bold text-xs">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
@@ -112,7 +111,7 @@ export function NavRail({ onToggleSidebar, isSidebarOpen }: NavRailProps) {
         ) : (
           <Link
             to="/login"
-            className="p-3 rounded-xl text-white/40 hover:text-white hover:bg-white/10 transition-all"
+            className="p-3 flex items-center justify-center rounded-xl text-white/40 hover:text-primary hover:bg-white/5 transition-all duration-300 hover:scale-110 group relative"
           >
             <UserIcon className="w-6 h-6" />
           </Link>

@@ -9,6 +9,10 @@ export interface Profile {
   username: string | null;
   display_name: string | null;
   avatar_url: string | null;
+  banner_url: string | null;
+  bio: string | null;
+  is_verified: boolean;
+  last_handle_change: string | null;
   role: UserRole;
   tokens_balance: number;
   is_banned: boolean;
@@ -59,19 +63,35 @@ export function useAuth() {
       if (error) throw error;
       
       let avatarUrl = data.avatar_url;
+      let bannerUrl = data.banner_url;
       
-      // If it's a storage path (e.g. "avatars/uid/image.png"), generate a signed URL
+      // Handle Avatar signed URL
       if (avatarUrl && !avatarUrl.startsWith('http')) {
         const { data: signedData, error: signedError } = await supabase.storage
           .from('avatars')
-          .createSignedUrl(avatarUrl, 3600); // 1 hour expiry
+          .createSignedUrl(avatarUrl, 3600);
         
         if (!signedError) {
           avatarUrl = signedData.signedUrl;
         }
       }
 
-      setProfile({ ...(data as Profile), avatar_url: avatarUrl });
+      // Handle Banner signed URL (if we add it later)
+      if (bannerUrl && !bannerUrl.startsWith('http')) {
+        const { data: signedData, error: signedError } = await supabase.storage
+          .from('banners')
+          .createSignedUrl(bannerUrl, 3600);
+        
+        if (!signedError) {
+          bannerUrl = signedData.signedUrl;
+        }
+      }
+
+      setProfile({ 
+        ...(data as Profile), 
+        avatar_url: avatarUrl,
+        banner_url: bannerUrl 
+      });
     } catch (error) {
       console.error('Error fetching profile:', error);
     } finally {

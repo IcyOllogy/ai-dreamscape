@@ -124,7 +124,7 @@ function RootComponent() {
       <AgeGate />
       <Toaster position="top-left" expand={true} richColors closeButton />
       <AppLayout>
-        <Outlet context={{ auth }} />
+        <Outlet />
       </AppLayout>
     </QueryClientProvider>
   );
