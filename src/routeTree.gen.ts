@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as LoginRouteImport } from './routes/login'
@@ -24,6 +25,11 @@ import { Route as CompanionsIdRouteImport } from './routes/companions.$id'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 
+const UnauthorizedRoute = UnauthorizedRouteImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/pricing': typeof PricingRoute
   '/signup': typeof SignupRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/pricing'
     | '/signup'
+    | '/unauthorized'
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/pricing'
     | '/signup'
+    | '/unauthorized'
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/pricing'
     | '/signup'
+    | '/unauthorized'
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
@@ -198,10 +210,18 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PricingRoute: typeof PricingRoute
   SignupRoute: typeof SignupRoute
+  UnauthorizedRoute: typeof UnauthorizedRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unauthorized': {
+      id: '/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof UnauthorizedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
@@ -352,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PricingRoute: PricingRoute,
   SignupRoute: SignupRoute,
+  UnauthorizedRoute: UnauthorizedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

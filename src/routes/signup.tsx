@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import hero from "@/assets/companions/noa.jpg";
 import { ChevronLeft, ShieldCheck } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
@@ -41,9 +42,24 @@ function Signup() {
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              nav({ to: "/companions" });
+              const { data, error } = await supabase.auth.signUp({
+                email: form.email,
+                password: form.pw,
+                options: {
+                  data: {
+                    full_name: form.name,
+                  },
+                },
+              });
+
+              if (error) {
+                alert(error.message);
+                return;
+              }
+
+              nav({ to: "/dashboard" });
             }}
             className="space-y-5"
           >
