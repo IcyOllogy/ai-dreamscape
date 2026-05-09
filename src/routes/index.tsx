@@ -23,7 +23,7 @@ function Index() {
   const featuredCompanions = featured.map((id) => companions.find((c) => c.id === id)!);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="text-foreground max-w-7xl mx-auto">
       {/* HERO SECTION */}
       <section className="relative h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">

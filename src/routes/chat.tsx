@@ -82,10 +82,7 @@ function ChatPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background overflow-hidden relative">
-      {/* Background Glows */}
-      <div className="ambient-glow w-[600px] h-[600px] -top-[300px] -left-[100px]" />
-      <div className="ambient-glow w-[500px] h-[500px] -bottom-[200px] -right-[100px] opacity-10" />
+    <div className="h-[calc(100vh-4rem)] md:h-screen flex flex-col overflow-hidden relative">
 
       <div className="flex-1 grid lg:grid-cols-[300px_1fr_350px] h-full relative z-10">
         {/* LEFT — companion list */}
