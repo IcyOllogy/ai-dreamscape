@@ -33,6 +33,7 @@ export function NavRail({ onToggleSidebar, isSidebarOpen }: NavRailProps) {
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-[--sidebar-rail-width] glass-rail z-[100] flex flex-col items-center py-6">
+      <div className="rail-edge-glow" />
       {/* Top: Menu Toggle */}
       <button 
         onClick={onToggleSidebar}

@@ -26,6 +26,8 @@ export function AppLayout({ children }: AppLayoutProps) {
       {/* Background Glows */}
       <div className="ambient-glow w-[600px] h-[600px] -top-48 -left-48" />
       <div className="ambient-glow w-[500px] h-[500px] bottom-0 -right-24" style={{ animationDelay: '-4s' }} />
+      <div className="ambient-glow w-[400px] h-[400px] top-1/2 left-1/4 opacity-[0.05]" style={{ animationDelay: '-2s', background: 'var(--color-secondary)' }} />
+      <div className="ambient-glow w-[300px] h-[300px] top-1/3 right-1/4 opacity-[0.03]" style={{ animationDelay: '-6s' }} />
 
       {/* Desktop Navigation */}
       <div className="hidden md:block">
