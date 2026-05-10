@@ -57,6 +57,7 @@ function AssetCard({ asset, onClick }: { asset: Asset; onClick: () => void }) {
         <LuxuryImage 
           src={asset.image_url} 
           alt={asset.prompt || "Generated Asset"} 
+          layoutId={`asset-${asset.id}`}
         />
         
         {/* Overlays */}

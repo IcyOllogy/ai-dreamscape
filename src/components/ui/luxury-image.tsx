@@ -8,9 +8,17 @@ interface LuxuryImageProps {
   className?: string;
   priority?: boolean;
   aspectRatio?: string;
+  layoutId?: string;
 }
 
-export function LuxuryImage({ src, alt, className, priority = false, aspectRatio = "aspect-[2/3]" }: LuxuryImageProps) {
+export function LuxuryImage({ 
+  src, 
+  alt, 
+  className, 
+  priority = false, 
+  aspectRatio = "aspect-[2/3]",
+  layoutId
+}: LuxuryImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
 
@@ -47,6 +55,7 @@ export function LuxuryImage({ src, alt, className, priority = false, aspectRatio
 
       {/* Main Image */}
       <motion.img
+        layoutId={layoutId}
         initial={{ opacity: 0, scale: 1.05 }}
         animate={{ 
           opacity: isLoaded ? 1 : 0, 

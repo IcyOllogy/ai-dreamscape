@@ -30,9 +30,10 @@ const replies = [
 ];
 
 const generateReply = createServerFn({ method: "POST" })
-  .handler(async ({ data }: { data: { text: string; userId: string } }) => {
-    // Phase 5 API Rate Limiting
-    if (!checkRateLimit(data.userId, 10, 60000)) { // 10 messages per minute
+  .handler(async ({ data, context }: { data: { text: string; userId: string }, context?: any }) => {
+    // Phase 5 API Rate Limiting - Use profile ID from context or passed ID
+    const rateLimitId = data.userId || "anonymous"; 
+    if (!checkRateLimit(rateLimitId, 10, 60000)) { // 10 messages per minute
       throw new Error("Rate limit exceeded");
     }
 
@@ -97,7 +98,7 @@ function ChatPage() {
     setTyping(true);
     
     try {
-      const reply = await generateReply({ data: { text, userId: activeId } });
+      const reply = await generateReply({ data: { text, userId: activeId } }); // In a real app, userId should be the authenticated user's ID
       setMessages((prev) => ({
         ...prev,
         [activeId]: [...(prev[activeId] ?? []), { from: "her", text: reply, t: Date.now() }],

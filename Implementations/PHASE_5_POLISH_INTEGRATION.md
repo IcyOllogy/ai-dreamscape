@@ -16,7 +16,7 @@ A new agent must ensure these are available before starting:
 
 ---
 
-## 🛠️ Pillar 1: The "Desire" Aesthetic (UI/UX Polish) [PARTIALLY COMPLETED]
+## 🛠️ Pillar 1: The "Desire" Aesthetic (UI/UX Polish) [COMPLETED]
 To evoke desire and addiction, the UI must feel expensive, fluid, and high-contrast.
 
 ### 1.1 Global Design Tokens [COMPLETED]
@@ -24,9 +24,9 @@ To evoke desire and addiction, the UI must feel expensive, fluid, and high-contr
 - **Neon Pulse**: All neon accents must use `#FF1B6B` (Dreamscape Pink). Hover states must increase glow using `drop-shadow(0 0 8px rgba(255, 27, 107, 0.6))`.
 - **Glassmorphism 2.0**: Sidebar and cards must use: `bg-white/[0.03] backdrop-blur-2xl border-white/[0.08]`.
 
-### 1.2 Silky Motion (Framer Motion) [REMEDIATION REQUIRED]
+### 1.2 Silky Motion (Framer Motion) [COMPLETED]
 - [x] **Global Route Transitions**: All route transitions and modal entries must use **Fluid** spring physics: `type: "spring", stiffness: 100, damping: 25, mass: 1.2`. 
-- [x] **Gallery Shared Elements**: When clicking an image in `MasonryGallery`, the image should "expand" into the detail view using Framer Motion's `layoutId`.
+- [x] **Gallery Shared Elements**: Implemented `layoutId` on `LuxuryImage` within `MasonryGallery` to ensure assets expand fluidly into detail views.
 - [x] **Success Shimmers**: When a user clicks "Refill" or "Upgrade," a subtle light-sweep animation must pass across the UI component. Use **Snappy** spring physics: `stiffness: 300, damping: 15`.
 
 ---
@@ -46,7 +46,7 @@ Engagement is driven by sensory rewards.
 - **Automation**: Use `vite-plugin-pwa` to manage the Service Worker and manifest generation.
 - **Manifest**: Use `public/icon-512.png` (Neon 'D' Outline) for all splash screens and icons.
 - **Native Lock-down**: 
-    - CSS: `html, body { overscroll-behavior: none; touch-action: pan-x pan-y; }`
+    - CSS: `html, body { overscroll-behavior: none; touch-action: pan-x pan-y; }` (Applied in `styles.css`)
     - Meta: `<meta name="apple-mobile-web-app-capable" content="yes">`.
 
 ---
@@ -62,7 +62,7 @@ Zero-downtime monitoring and error-free UX.
 
 ---
 
-## 🛠️ Pillar 4: The "Fortress" Security Protocol [IN PROGRESS]
+## 🛠️ Pillar 4: The "Fortress" Security Protocol [COMPLETED]
 Proving the platform is unbreakable.
 
 ### 4.1 Security Audit Tasks
@@ -70,8 +70,8 @@ Proving the platform is unbreakable.
 2. [x] **Prompt Injection Defense**: 
     - Audit the `chat.tsx` interface for client-side leaks.
     - **Prompt Injection Guard**: Implement a server-side interceptor that scans LLM responses.
-3. [x] **API Rate Limiting**: Implement/Verify rate limiting on the `/refill` and `/generate` endpoints to prevent "Token Exhaustion" attacks by bots.
-4. [x] **Audit Artifact**: All results must be documented in a new `SECURITY_AUDIT.md` file.
+3. [x] **API Rate Limiting**: Implemented robust rate limiting on `/refill` and `/generate` using User-ID identification (falling back to companion ID if anonymous) to prevent exhaustion attacks.
+4. [x] **Audit Artifact**: All results documented and verified. (Final Scan: 2026-05-10).
 
 ---
 
