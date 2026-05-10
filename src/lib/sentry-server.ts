@@ -1,16 +1,5 @@
-import * as Sentry from "@sentry/node";
-
-export function initSentryServer() {
-  const dsn = process.env.VITE_SENTRY_DSN || process.env.SENTRY_DSN;
-  
-  if (!dsn) {
-    console.warn("Sentry DSN is not defined. Sentry server initialization skipped.");
-    return;
-  }
-
-  Sentry.init({
-    dsn,
-    // Performance Monitoring
-    tracesSampleRate: 1.0, 
-  });
-}
+/**
+ * Deprecated: Sentry server initialization is now handled in src/server.ts 
+ * using the Sentry.withSentry() wrapper for Cloudflare Worker compatibility.
+ */
+export {};
