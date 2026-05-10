@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Sparkles, Zap } from "lucide-react";
+import { Check, Sparkles, Zap, Megaphone } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -33,9 +33,12 @@ function Pricing() {
   const [tiers, setTiers] = useState<Tier[]>([]);
   const [loading, setLoading] = useState(true);
   const [interval, setInterval] = useState<'monthly' | 'yearly'>('monthly');
+  const [globalSalePercent, setGlobalSalePercent] = useState(0);
+  const [announcement, setAnnouncement] = useState<any>(null);
 
   useEffect(() => {
     fetchTiers();
+    fetchSettings();
   }, []);
 
   async function fetchTiers() {
@@ -47,6 +50,20 @@ function Pricing() {
     setLoading(false);
   }
 
+  async function fetchSettings() {
+    try {
+      const { data } = await supabase.from("platform_settings").select("*");
+      if (data) {
+        const sale = data.find(s => s.key === 'global_sale_percentage')?.value;
+        const announce = data.find(s => s.key === 'global_announcement')?.value;
+        if (sale !== undefined) setGlobalSalePercent(Number(sale));
+        if (announce?.is_visible) setAnnouncement(announce);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background pb-32">
       {/* Background Ambient Glows */}
@@ -54,6 +71,17 @@ function Pricing() {
         <div className="ambient-glow w-[800px] h-[800px] -top-[400px] -right-[200px] opacity-10" />
         <div className="ambient-glow w-[600px] h-[600px] bottom-[10%] -left-[200px] opacity-5" />
       </div>
+
+      {announcement && (
+        <div className="fixed top-0 left-0 right-0 z-[100] animate-slide-down">
+          <div className="bg-primary/90 backdrop-blur-md px-6 py-3 flex items-center justify-center gap-3">
+            <Megaphone className="w-4 h-4 text-black animate-bounce" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black">
+              {announcement.text}
+            </span>
+          </div>
+        </div>
+      )}
 
       <section className="relative z-10 pt-32 pb-10 max-w-5xl mx-auto px-6 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-[10px] font-bold uppercase tracking-[0.3em] text-primary mb-6 animate-slide-up">
@@ -87,8 +115,19 @@ function Pricing() {
           ) : (
             tiers.map((t, i) => {
               const standardPrice = interval === 'monthly' ? t.price_monthly : t.price_yearly;
-              const salePrice = interval === 'monthly' ? t.sale_price_monthly : t.sale_price_yearly;
-              const finalPrice = salePrice ?? standardPrice;
+              const manualSalePrice = interval === 'monthly' ? t.sale_price_monthly : t.sale_price_yearly;
+              
+              // Apply global sale logic: ignore manual sale if global percentage is set
+              let finalPrice = standardPrice;
+              let isOnSale = false;
+
+              if (globalSalePercent > 0) {
+                finalPrice = Math.round(standardPrice * (1 - globalSalePercent / 100));
+                isOnSale = true;
+              } else if (manualSalePrice !== null) {
+                finalPrice = manualSalePrice;
+                isOnSale = true;
+              }
 
               return (
                 <div
@@ -114,17 +153,19 @@ function Pricing() {
                       <span className="text-5xl font-black tracking-tighter">${finalPrice}</span>
                       <span className="text-sm text-muted-foreground font-medium">/{interval === 'monthly' ? 'mo' : 'yr'}</span>
                     </div>
-                    {salePrice && (
+                    {isOnSale && (
                       <div className="mt-2 flex items-center gap-2">
                         <span className="text-[10px] text-zinc-500 line-through">${standardPrice}</span>
-                        <span className="text-[10px] text-primary font-black uppercase tracking-widest">Special Sale</span>
+                        <span className="text-[10px] text-primary font-black uppercase tracking-widest">
+                          {globalSalePercent > 0 ? `${globalSalePercent}% OFF` : 'Special Sale'}
+                        </span>
                       </div>
                     )}
                   </div>
 
                   <div className="flex-1 space-y-4 mb-10">
                     <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-600 mb-2">Entitlements</div>
-                    <div className="text-xs font-bold text-primary">{t.tokens_included} Monthly Tokens</div>
+                    <div className="text-xs font-bold text-primary">{t.tokens_included.toLocaleString()} Monthly Tokens</div>
                     {t.features.map((f) => (
                       <div key={f} className="flex items-start gap-3 text-sm text-zinc-300">
                         <div className={`mt-0.5 rounded-full p-0.5 ${t.is_featured ? 'bg-primary/20 text-primary' : 'bg-white/5 text-zinc-500'}`}>
@@ -153,10 +194,10 @@ function Pricing() {
 
         <div className="mt-24 text-center space-y-6 animate-slide-up" style={{ animationDelay: '600ms' }}>
           <div className="flex items-center justify-center gap-8 flex-wrap opacity-40 grayscale contrast-125">
-             <div className="flex items-center gap-2 font-black tracking-tighter text-xl">VISA</div>
-             <div className="flex items-center gap-2 font-black tracking-tighter text-xl">MASTERCARD</div>
-             <div className="flex items-center gap-2 font-black tracking-tighter text-xl">CRYPTO</div>
-             <div className="flex items-center gap-2 font-black tracking-tighter text-xl">APPLE PAY</div>
+             <div className="flex items-center gap-2 font-black tracking-tighter text-xl text-white">VISA</div>
+             <div className="flex items-center gap-2 font-black tracking-tighter text-xl text-white">MASTERCARD</div>
+             <div className="flex items-center gap-2 font-black tracking-tighter text-xl text-white">CRYPTO</div>
+             <div className="flex items-center gap-2 font-black tracking-tighter text-xl text-white">APPLE PAY</div>
           </div>
           <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60 max-w-2xl mx-auto leading-loose">
             Private & Encrypted billing. Discreet statement entry. <br />

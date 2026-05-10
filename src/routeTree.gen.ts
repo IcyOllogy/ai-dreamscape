@@ -28,6 +28,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as CompanionsIdRouteImport } from './routes/companions.$id'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
+import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
@@ -124,6 +125,11 @@ const AdminPricingRoute = AdminPricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminGalleryRoute = AdminGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/admin/gallery': typeof AdminGalleryRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/signup'
     | '/unauthorized'
+    | '/admin/gallery'
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/signup'
     | '/unauthorized'
+    | '/admin/gallery'
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/signup'
     | '/unauthorized'
+    | '/admin/gallery'
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
@@ -400,16 +412,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPricingRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/gallery': {
+      id: '/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminGalleryRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminGalleryRoute: typeof AdminGalleryRoute
   AdminPricingRoute: typeof AdminPricingRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminGalleryRoute: AdminGalleryRoute,
   AdminPricingRoute: AdminPricingRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -13,10 +13,12 @@ import { AgeGate } from "@/components/site/AgeGate";
 import { Navigation } from "@/components/site/Navigation";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { PlatformBanner } from "@/components/site/PlatformBanner";
+import { MaintenanceOverlay } from "@/components/site/MaintenanceOverlay";
 import * as Sentry from "@sentry/react";
 import { useAuth, Profile } from "@/hooks/useAuth";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/lib/supabase";
 
 function NotFoundComponent() {
   return (
@@ -106,6 +108,35 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const auth = useAuth();
   const router = useRouter();
+  const [maintenance, setMaintenance] = useState(false);
+
+  useEffect(() => {
+    // Check maintenance mode on mount and listen for changes
+    const checkMaintenance = async () => {
+      const { data } = await supabase
+        .from('platform_settings')
+        .select('value')
+        .eq('key', 'maintenance_mode')
+        .single();
+      
+      if (data) setMaintenance(Boolean(data.value));
+    };
+
+    checkMaintenance();
+
+    const channel = supabase
+      .channel(`platform_settings_changes_${Date.now()}`)
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'platform_settings' }, (payload) => {
+        if (payload.new.key === 'maintenance_mode') {
+          setMaintenance(Boolean(payload.new.value));
+        }
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // Sync auth state to router context so beforeLoad guards can use it
   useEffect(() => {
@@ -119,9 +150,13 @@ function RootComponent() {
       },
     } as any);
   }, [auth.profile, auth.loading, router]);
+
+  // Block non-admins if maintenance is active
+  const isMaintenanceBlocked = maintenance && auth.profile?.role !== 'admin';
   
   return (
     <QueryClientProvider client={queryClient}>
+      {isMaintenanceBlocked && <MaintenanceOverlay />}
       <PlatformBanner />
       <AgeGate />
       <Toaster position="top-left" expand={true} richColors closeButton />
