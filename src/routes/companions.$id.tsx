@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { findCompanion, companions } from "@/data/companions";
 import { ChevronLeft, MessageSquare, Heart, Shield, Sparkles, TrendingUp, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/companions/$id")({
   loader: ({ params }) => {
@@ -50,8 +51,9 @@ function CompanionDetail() {
         {/* IMAGE SIDE */}
         <div className="relative h-[70vh] lg:h-screen sticky top-0 overflow-hidden group">
           {images.map((img, idx) => (
-            <img
+            <motion.img
               key={idx}
+              layoutId={idx === 0 ? `companion-img-${c.id}` : undefined}
               src={img}
               alt={`${c.name} - image ${idx + 1}`}
               className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ${
@@ -114,7 +116,7 @@ function CompanionDetail() {
 
         {/* CONTENT SIDE */}
         <div className="p-6 lg:p-16 flex flex-col justify-center max-w-2xl mx-auto lg:mx-0">
-          <div className="space-y-10 animate-slide-up">
+          <div className="space-y-10">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-[0.2em] mb-4">
                 <Sparkles className="w-3 h-3" />

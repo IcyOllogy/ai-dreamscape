@@ -102,4 +102,39 @@
   .neon-indicator {
     @apply absolute left-0 w-1 h-8 bg-primary rounded-r-full shadow-[0_0_10px_#FF1B6B];
   }
+
+  .shimmer-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-sweep::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .shimmer-sweep:hover::after {
+    left: 140%;
+  }
+
+  .shimmer-active::after {
+    animation: shimmer-sweep 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  @keyframes shimmer-sweep {
+    from { left: -60%; }
+    to { left: 140%; }
+  }
 }

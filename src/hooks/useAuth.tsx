@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { User, Session } from '@supabase/supabase-js';
+import * as Sentry from "@sentry/react";
 
 export type UserRole = 'free_member' | 'member' | 'pro_member' | 'vip_member' | 'admin';
 
@@ -79,6 +80,8 @@ export function useAuth() {
       } else {
         setProfile(null);
         setLoading(false);
+        // Clear Sentry user on logout
+        Sentry.setUser(null);
       }
     });
 
@@ -131,6 +134,14 @@ export function useAuth() {
         ...(data as Profile), 
         avatar_url: avatarUrl,
         banner_url: bannerUrl 
+      });
+
+      // Sync user identity to Sentry
+      Sentry.setUser({ 
+        id: userId,
+        email: user?.email,
+        username: data.username || undefined,
+        role: data.role
       });
     } catch (error) {
       console.error('Error fetching profile:', error);

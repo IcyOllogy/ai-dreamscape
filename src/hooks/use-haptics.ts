@@ -53,9 +53,20 @@ export function useHaptics() {
     oscillator.stop(audioCtxRef.current.currentTime + duration);
   }, [initAudio]);
 
-  const hapticClick = () => playSound(200, "sine", 0.05, 0.05);
-  const hapticRefill = () => playReward(400, 800, 0.6);
-  const hapticUpgrade = () => playReward(100, 300, 1.0);
+  const hapticClick = () => {
+    playSound(200, "sine", 0.05, 0.05);
+    if ("vibrate" in navigator) navigator.vibrate(10);
+  };
+
+  const hapticRefill = () => {
+    playReward(400, 800, 0.6);
+    if ("vibrate" in navigator) navigator.vibrate([10, 30, 10]);
+  };
+
+  const hapticUpgrade = () => {
+    playReward(100, 300, 1.0);
+    if ("vibrate" in navigator) navigator.vibrate([20, 50, 20]);
+  };
 
   return { hapticClick, hapticRefill, hapticUpgrade, initAudio };
 }

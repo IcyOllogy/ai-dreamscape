@@ -7,7 +7,9 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useLocation,
 } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "framer-motion";
 import appCss from "../styles.css?url";
 import { AgeGate } from "@/components/site/AgeGate";
 import { Navigation } from "@/components/site/Navigation";
@@ -165,7 +167,23 @@ function RootComponent() {
       <AgeGate />
       <Toaster position="top-left" expand={true} richColors closeButton />
       <AppLayout>
-        <Outlet />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={useLocation().key}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 30, 
+              mass: 1 
+            }}
+            className="h-full w-full"
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </AppLayout>
     </QueryClientProvider>
   );
