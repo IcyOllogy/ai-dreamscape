@@ -71,10 +71,13 @@ This final phase focuses on stabilizing the **AI Dreamscape** platform, standard
 - **Dopamine Hits**: Implementing "Success Shimmers" – a subtle light sweep across the UI when a user completes a high-value action (like a refill).
 - **PWA (App Mode)**: Implementing the manifest and service worker **now** to allow full-screen installation on mobile. This is a key selling point for "private" apps.
 - **Sentry Trace & Diagnostics**: Enabling full performance tracing and adding a "Diagnostic" test button to the Admin UI.
+- **Audio Delights (Optional)**: To maximize the "addictive" feel, adding subtle, high-end UI sounds (silky clicks/shimmers) for reward actions like token refills.
+- **The "Fortress" Audit**: A documented internal penetration test where I attempt to bypass privacy filters to prove the platform is secure.
 
 ### Technical Guidance for the USER
-1. **OG Images (Open Graph)**: Yes, sites like **Candy.ai** use this to make shared links look enticing and personal. It turns a boring link into a "visual invite."
-2. **PWA Timing**: We can implement this immediately. It doesn't interfere with the website but enables the "Install App" feature.
-3. **Adding Sentry DSN**: Add this line to your `.env` file: `VITE_SENTRY_DSN=your_link_here`. I'll implement "Safe Mode" so it works gracefully even before you add the link.
-4. **Mobile/Native Feel**: I will focus on removing "pull-to-refresh" and adding "overscroll-behavior: none" to make the PWA feel like a high-end native iOS/Android app.
+1. **OG Images (Open Graph)**: Yes, sites like **Candy.ai** use this to make shared links look enticing and personal. It turns a boring link into a "visual invite." Yes then lets also do this!
+2. **PWA Timing**: We can implement this immediately. It doesn't interfere with the website but enables the "Install App" feature. Excellent yes lets do this.
+3. **Adding Sentry DSN**: **VERIFIED**. I have checked your `.env` and the DSN is correctly configured. The app will now communicate with Sentry.
+4. **App Icon**: For the PWA, we need a 512x512 icon. I can generate some luxurious options using my image tool if you'd like to select one.
+5. **Mobile/Native Feel**: I will focus on removing "pull-to-refresh" and adding "overscroll-behavior: none" to make the PWA feel like a high-end native iOS/Android app. Excellent!
 
