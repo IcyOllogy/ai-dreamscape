@@ -11,6 +11,7 @@ This file tracks the current open issues in the GitHub repository. Use this as a
 | [#14](https://github.com/IcyOllogy/ai-dreamscape/issues/14) | `[Bug]` | [Pricing page banner visible when no sale is active](https://github.com/IcyOllogy/ai-dreamscape/issues/14) | `OPEN` |
 | [#23](https://github.com/IcyOllogy/ai-dreamscape/issues/23) | `[Feature]` | [Remove Panic Button Redirect](https://github.com/IcyOllogy/ai-dreamscape/issues/23) | `OPEN` |
 | [#11](https://github.com/IcyOllogy/ai-dreamscape/issues/11) | `[Bug]` | [Back to home button obscured on login and signup pages](https://github.com/IcyOllogy/ai-dreamscape/issues/11) | `OPEN` |
+| [#24](https://github.com/IcyOllogy/ai-dreamscape/issues/24) | `[Feature]` | [Commerce: Enable Plan Purchases & Automatic Role Assignment](https://github.com/IcyOllogy/ai-dreamscape/issues/24) | `OPEN` |
 
 ---
 
@@ -40,6 +41,11 @@ This file tracks the current open issues in the GitHub repository. Use this as a
 - **Description:** Remove the "Panic Button" (Quick Exit) from the navigation as it is no longer required.
 - **Priority:** Low
 - **Context:** `Navigation.tsx` and `NavRail.tsx` components.
+
+### [#24] Commerce: Enable Plan Purchases & Automatic Role Assignment
+- **Description:** Enable the ability to purchase plans to test if roles are automatically assigned after purchase.
+- **Priority:** Normal
+- **Context:** Membership purchase flow and role automation.
 
 ---
 *Last updated: 2026-05-10*
