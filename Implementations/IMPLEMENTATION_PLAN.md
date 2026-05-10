@@ -127,10 +127,11 @@ We will formalize the current aesthetics into a central design guide and impleme
 - [x] Create Settings Hub (Account, Bio, Verification Badge).
 - [x] Build Membership Dashboard (Token Pulse, Usage Metrics).
 
-### Phase 4: Admin Dashboard
-- Implement the Admin metrics view (Revenue/DAU).
-- Build the User Management table with search/filter.
-- Create the Pricing CRUD interface.
+### Phase 4: Admin Dashboard [COMPLETED]
+- [x] Implement the Admin metrics view (Revenue/DAU/Telemetry).
+- [x] Build the User Management table with search/filter/moderation.
+- [x] Create the Pricing CRUD interface with Global Sale % and Maintenance Mode.
+- [x] Build Gallery Moderation with privacy overrides.
 
 ### Phase 5: Polish & Integration
 - Final branding pass for all new elements.

@@ -16,6 +16,9 @@ export interface Profile {
   role: UserRole;
   tokens_balance: number;
   is_banned: boolean;
+  country: string | null;
+  last_active_at: string | null;
+  admin_notes: string | null;
   created_at: string;
 }
 
@@ -24,6 +27,36 @@ export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Heartbeat & Ban Check
+  useEffect(() => {
+    if (user && profile) {
+      // 1. Immediate Ban Check
+      if (profile.is_banned) {
+        console.warn('User is banned. Terminating session.');
+        supabase.auth.signOut();
+        return;
+      }
+
+      // 2. Heartbeat (Update last_active_at every 5 minutes)
+      const heartbeatInterval = setInterval(() => {
+        supabase
+          .from('profiles')
+          .update({ last_active_at: new Date().toISOString() })
+          .eq('id', user.id)
+          .then();
+      }, 5 * 60 * 1000);
+
+      // Initial update
+      supabase
+        .from('profiles')
+        .update({ last_active_at: new Date().toISOString() })
+        .eq('id', user.id)
+        .then();
+
+      return () => clearInterval(heartbeatInterval);
+    }
+  }, [user, profile]);
 
   useEffect(() => {
     // Get initial session
@@ -61,6 +94,13 @@ export function useAuth() {
         .single();
 
       if (error) throw error;
+
+      // Handle immediate ban on fetch
+      if (data.is_banned) {
+        setProfile(null);
+        await supabase.auth.signOut();
+        return;
+      }
       
       let avatarUrl = data.avatar_url;
       let bannerUrl = data.banner_url;
@@ -76,7 +116,7 @@ export function useAuth() {
         }
       }
 
-      // Handle Banner signed URL (if we add it later)
+      // Handle Banner signed URL
       if (bannerUrl && !bannerUrl.startsWith('http')) {
         const { data: signedData, error: signedError } = await supabase.storage
           .from('banners')
@@ -114,8 +154,7 @@ export function useAuth() {
 
       if (uploadError) throw uploadError;
 
-      // Update profile with the STORAGE PATH (not the signed URL)
-      // The fetchProfile function will resolve this path later
+      // Update profile with the STORAGE PATH
       const { error: updateError } = await supabase
         .from('profiles')
         .update({ avatar_url: filePath })
