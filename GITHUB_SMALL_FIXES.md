@@ -6,6 +6,7 @@ This file tracks the current open issues in the GitHub repository. Use this as a
 
 | ID | Type | Title | Status |
 |----|------|-------|--------|
+| [#22](https://github.com/IcyOllogy/ai-dreamscape/issues/22) | `[Feature]` | [Admin Dashboard: View User Emails](https://github.com/IcyOllogy/ai-dreamscape/issues/22) | `OPEN` |
 | [#21](https://github.com/IcyOllogy/ai-dreamscape/issues/21) | `[Feature]` | [Admin Dashboard: Manage Member Roles](https://github.com/IcyOllogy/ai-dreamscape/issues/21) | `OPEN` |
 | [#14](https://github.com/IcyOllogy/ai-dreamscape/issues/14) | `[Bug]` | [Pricing page banner visible when no sale is active](https://github.com/IcyOllogy/ai-dreamscape/issues/14) | `OPEN` |
 | [#11](https://github.com/IcyOllogy/ai-dreamscape/issues/11) | `[Bug]` | [Back to home button obscured on login and signup pages](https://github.com/IcyOllogy/ai-dreamscape/issues/11) | `OPEN` |
@@ -13,6 +14,11 @@ This file tracks the current open issues in the GitHub repository. Use this as a
 ---
 
 ## 📝 Issue Details
+
+### [#22] Admin Dashboard: View User Emails
+- **Description:** Allow administrators to view user emails in the Admin Dashboard's users section for future communication needs.
+- **Priority:** Normal
+- **Context:** `http://localhost:8080/admin/users`
 
 ### [#21] Admin Dashboard: Manage Member Roles
 - **Description:** Implement functionality in the Admin Dashboard to allow administrators to manage user roles.
