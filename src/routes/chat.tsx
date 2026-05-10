@@ -4,6 +4,7 @@ import { companions, findCompanion, type Companion } from "@/data/companions";
 import { Send, Mic, Plus, MoreVertical, Phone, Users } from "lucide-react";
 import { useHaptics } from "@/hooks/use-haptics";
 import { sanitizeResponse } from "@/lib/security";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { createServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/chat")({
@@ -29,7 +30,12 @@ const replies = [
 ];
 
 const generateReply = createServerFn({ method: "POST" })
-  .handler(async ({ data }: { data: string }) => {
+  .handler(async ({ data }: { data: { text: string; userId: string } }) => {
+    // Phase 5 API Rate Limiting
+    if (!checkRateLimit(data.userId, 10, 60000)) { // 10 messages per minute
+      throw new Error("Rate limit exceeded");
+    }
+
     // Simulate LLM delay
     await new Promise((r) => setTimeout(r, 1000 + Math.random() * 1000));
 
@@ -91,13 +97,18 @@ function ChatPage() {
     setTyping(true);
     
     try {
-      const reply = await generateReply({ data: text });
+      const reply = await generateReply({ data: { text, userId: activeId } });
       setMessages((prev) => ({
         ...prev,
         [activeId]: [...(prev[activeId] ?? []), { from: "her", text: reply, t: Date.now() }],
       }));
     } catch (error) {
       console.error("Failed to generate reply:", error);
+      // Fallback for rate limit error or general error
+      setMessages((prev) => ({
+        ...prev,
+        [activeId]: [...(prev[activeId] ?? []), { from: "her", text: "I need a moment to catch my breath... let's pause for a second.", t: Date.now() }],
+      }));
     } finally {
       setTyping(false);
     }

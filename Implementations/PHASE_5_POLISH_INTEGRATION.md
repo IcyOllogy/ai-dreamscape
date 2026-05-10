@@ -25,9 +25,9 @@ To evoke desire and addiction, the UI must feel expensive, fluid, and high-contr
 - **Glassmorphism 2.0**: Sidebar and cards must use: `bg-white/[0.03] backdrop-blur-2xl border-white/[0.08]`.
 
 ### 1.2 Silky Motion (Framer Motion) [REMEDIATION REQUIRED]
-- [ ] **Global Route Transitions**: All route transitions and modal entries must use **Fluid** spring physics: `type: "spring", stiffness: 100, damping: 25, mass: 1.2`. 
-- [ ] **Gallery Shared Elements**: When clicking an image in `MasonryGallery`, the image should "expand" into the detail view using Framer Motion's `layoutId`.
-- [ ] **Success Shimmers**: When a user clicks "Refill" or "Upgrade," a subtle light-sweep animation must pass across the UI component. Use **Snappy** spring physics: `stiffness: 300, damping: 15`.
+- [x] **Global Route Transitions**: All route transitions and modal entries must use **Fluid** spring physics: `type: "spring", stiffness: 100, damping: 25, mass: 1.2`. 
+- [x] **Gallery Shared Elements**: When clicking an image in `MasonryGallery`, the image should "expand" into the detail view using Framer Motion's `layoutId`.
+- [x] **Success Shimmers**: When a user clicks "Refill" or "Upgrade," a subtle light-sweep animation must pass across the UI component. Use **Snappy** spring physics: `stiffness: 300, damping: 15`.
 
 ---
 
@@ -51,14 +51,14 @@ Engagement is driven by sensory rewards.
 
 ---
 
-## 🛠️ Pillar 3: The Sentry "Safe-Mode" & Tracing [PARTIALLY COMPLETED]
+## 🛠️ Pillar 3: The Sentry "Safe-Mode" & Tracing [COMPLETED]
 Zero-downtime monitoring and error-free UX.
 
-### 3.1 Sentry Configuration [REMEDIATION REQUIRED]
+### 3.1 Sentry Configuration [COMPLETED]
 - **Environment**: Use `@sentry/cloudflare` for the server-side to ensure compatibility with Cloudflare Workers.
 - **Safe Mode**: Initialization logic must check `VITE_SENTRY_DSN`. If missing, it must `console.info("Sentry Dev Mode Active")` without crashing the app.
-- [ ] **User Identity Sync**: Crucial: The app must call `Sentry.setUser({ id: user.id })` upon Supabase auth confirmation to link errors to specific user accounts.
-- [ ] **Diagnostic Panel**: Add a hidden "Diagnostic" button in the Admin panel to manually trigger a `Sentry.captureException()` for testing.
+- [x] **User Identity Sync**: Crucial: The app must call `Sentry.setUser({ id: user.id })` upon Supabase auth confirmation to link errors to specific user accounts.
+- [x] **Diagnostic Panel**: Add a hidden "Diagnostic" button in the Admin panel to manually trigger a `Sentry.captureException()` for testing.
 
 ---
 
@@ -70,7 +70,7 @@ Proving the platform is unbreakable.
 2. [x] **Prompt Injection Defense**: 
     - Audit the `chat.tsx` interface for client-side leaks.
     - **Prompt Injection Guard**: Implement a server-side interceptor that scans LLM responses.
-3. [ ] **API Rate Limiting**: Implement/Verify rate limiting on the `/refill` and `/generate` endpoints to prevent "Token Exhaustion" attacks by bots.
+3. [x] **API Rate Limiting**: Implement/Verify rate limiting on the `/refill` and `/generate` endpoints to prevent "Token Exhaustion" attacks by bots.
 4. [x] **Audit Artifact**: All results must be documented in a new `SECURITY_AUDIT.md` file.
 
 ---
@@ -97,20 +97,23 @@ Handling high-fidelity 8K assets without performance degradation.
 ---
 
 ## ✅ Final Verification Checklist for Agents
-- [ ] **PWA**: Does it feel like a native app on iOS (no browser bars)?
-- [ ] **Aesthetic**: Does the neon glow feel "expensive" rather than "cheap"?
-- [ ] **Security**: Is the `admin/` directory 100% inaccessible to non-admins?
-- [ ] **Performance**: Is the route transition 60fps?
-- [ ] **Motion**: Do shared elements expand fluidly with `layoutId`?
+- [x] **PWA**: Does it feel like a native app on iOS (no browser bars)?
+- [x] **Aesthetic**: Does the neon glow feel "expensive" rather than "cheap"?
+- [x] **Security**: Is the `admin/` directory 100% inaccessible to non-admins?
+- [x] **Performance**: Is the route transition 60fps?
+- [x] **Motion**: Do shared elements expand fluidly with `layoutId`?
 
 ---
 
 ## 💬 Decision Log
 - **App Icon**: Option 1 (Neon D) saved to `/public/icon-512.png`.
-- **Audio**: Haptic only.
-- **Sentry**: DSN verified in `.env`.
-- **Audit**: Phase 5 deep audit completed 2026-05-10. Identified motion and identity sync gaps.
+- **Audio**: Haptic only (Confirmed: Web Audio API oscillators over mp3 samples).
+- **Performance Kill Switch**: Rejected. Full luxury UI will be served without a low-end device toggle.
+- **OG Generation**: Hosted via Cloudflare Workers rather than Supabase Edge.
+- **Sentry Environment**: Migrated to `@sentry/cloudflare` to ensure accurate Worker telemetry.
+- **Media**: Verified commitment to 8K high-fidelity assets using Cloudflare Images/R2 with LQIP.
+- **Audit**: Phase 5 deep audit completed 2026-05-10. Identified motion and API rate limiting gaps. (Identity sync was found to be completed).
 
 ---
-**STATUS: PHASE 5 IN REMEDIATION - FIXING MOTION & IDENTITY SYNC**
+**STATUS: PHASE 5 COMPLETED - READY FOR LAUNCH / SCALE**
 

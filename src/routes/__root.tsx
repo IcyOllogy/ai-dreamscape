@@ -76,7 +76,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { property: "og:title", content: "Dreamscape — Your AI Fantasy" },
       { property: "og:description", content: "Meet the girl of your dreams in high-fidelity AI realism." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://ai-dreamscape.com/og-proxy?name=Dreamscape" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://ai-dreamscape.com/og-proxy?name=Dreamscape" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -175,9 +177,9 @@ function RootComponent() {
             exit={{ opacity: 0, y: -8 }}
             transition={{ 
               type: "spring", 
-              stiffness: 300, 
-              damping: 30, 
-              mass: 1 
+              stiffness: 100, 
+              damping: 25, 
+              mass: 1.2 
             }}
             className="h-full w-full"
           >
