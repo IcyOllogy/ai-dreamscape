@@ -4,22 +4,28 @@
   --color-primary: #FF1B6B;
   --color-secondary: #A855F7;
   --color-background: #020202;
-  --color-card: rgba(255, 255, 255, 0.05);
-  --color-border: rgba(255, 255, 255, 0.1);
+  --color-midnight: #0A0A0B;
+  --color-card: rgba(255, 255, 255, 0.03);
+  --color-border: rgba(255, 255, 255, 0.08);
 
   --font-display: "Outfit", sans-serif;
   --font-sans: "Inter", sans-serif;
 
   --shadow-neon: 0 0 15px rgba(255, 27, 107, 0.4);
+  --shadow-neon-glow: drop-shadow(0 0 8px rgba(255, 27, 107, 0.6));
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
 
   --sidebar-rail-width: 72px;
   --sidebar-expanded-width: 240px;
+
+  --background-midnight: linear-gradient(180deg, var(--color-midnight) 0%, #000000 100%);
 }
 
 @layer base {
   body {
-    @apply bg-background text-white font-sans overflow-x-hidden;
+    background: var(--background-midnight);
+    @apply text-white font-sans overflow-x-hidden;
+    min-height: 100vh;
   }
 }
 
@@ -40,11 +46,11 @@
   }
 
   .glass-panel {
-    @apply bg-white/5 backdrop-blur-2xl border border-white/10;
+    @apply bg-card backdrop-blur-2xl border border-border;
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 hover:shadow-neon transition-all duration-300;
+    @apply bg-card backdrop-blur-xl border border-border hover:bg-white/[0.05] hover:shadow-neon transition-all duration-300;
   }
 
   .rail-edge-glow {

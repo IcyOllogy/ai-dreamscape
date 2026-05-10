@@ -1,5 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Home, Compass, MessageSquare, CreditCard, Menu, User as UserIcon } from "lucide-react";
+import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
@@ -39,7 +40,10 @@ export function NavRail({ onToggleSidebar, isSidebarOpen }: NavRailProps) {
         onClick={onToggleSidebar}
         className="p-3 rounded-xl hover:bg-white/10 text-white/70 hover:text-white transition-all mb-8"
       >
-        <Menu className={`w-6 h-6 transition-transform duration-300 ${isSidebarOpen ? 'rotate-90 text-primary' : ''}`} />
+        <Menu 
+          strokeWidth={1.5}
+          className={`w-6 h-6 transition-transform duration-300 ${isSidebarOpen ? 'rotate-90 text-primary shadow-neon-glow' : ''}`} 
+        />
       </button>
 
       {/* Middle: Primary Navigation */}
@@ -55,8 +59,17 @@ export function NavRail({ onToggleSidebar, isSidebarOpen }: NavRailProps) {
                 isActive ? 'text-primary' : 'text-white/40 hover:text-white'
               }`}
             >
-              {isActive && <div className="neon-indicator -left-3" />}
-              <item.icon className={`w-6 h-6 transition-transform group-hover:scale-110`} />
+              {isActive && (
+                <motion.div 
+                  layoutId="rail-indicator"
+                  className="neon-indicator -left-3"
+                  transition={{ type: "spring", stiffness: 120, damping: 20, mass: 1 }}
+                />
+              )}
+              <item.icon 
+                strokeWidth={1.5}
+                className={`w-6 h-6 transition-transform group-hover:scale-110 ${isActive ? 'drop-shadow(0 0 8px rgba(255, 27, 107, 0.4))' : ''}`} 
+              />
               
               {/* Tooltip (Custom) */}
               <div className="absolute left-full ml-4 px-2 py-1 bg-black/80 border border-white/10 rounded text-[10px] uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-[110]">

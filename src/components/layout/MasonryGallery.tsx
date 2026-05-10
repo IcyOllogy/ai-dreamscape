@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Maximize2, Heart, Share2, Info } from 'lucide-react';
+import { LuxuryImage } from '@/components/ui/luxury-image';
 
 interface Asset {
   id: string;
@@ -52,11 +53,10 @@ function AssetCard({ asset, onClick }: { asset: Asset; onClick: () => void }) {
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      <div className="aspect-[2/3] relative">
-        <img 
+      <div className="relative">
+        <LuxuryImage 
           src={asset.image_url} 
           alt={asset.prompt || "Generated Asset"} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         
         {/* Overlays */}
@@ -75,10 +75,10 @@ function AssetCard({ asset, onClick }: { asset: Asset; onClick: () => void }) {
         <div className={`absolute inset-0 p-4 flex flex-col justify-between transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
           <div className="flex justify-end gap-2">
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-primary/20 hover:text-primary transition-colors">
-              <Heart className="w-4 h-4" />
+              <Heart strokeWidth={1.5} className="w-4 h-4" />
             </button>
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-primary/20 hover:text-primary transition-colors">
-              <Share2 className="w-4 h-4" />
+              <Share2 strokeWidth={1.5} className="w-4 h-4" />
             </button>
           </div>
 
