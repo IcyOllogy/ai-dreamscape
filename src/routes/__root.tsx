@@ -12,6 +12,7 @@ import appCss from "../styles.css?url";
 import { AgeGate } from "@/components/site/AgeGate";
 import { Navigation } from "@/components/site/Navigation";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { PlatformBanner } from "@/components/site/PlatformBanner";
 import * as Sentry from "@sentry/react";
 import { useAuth, Profile } from "@/hooks/useAuth";
 import { AppLayout } from "@/components/layout/AppLayout";
@@ -121,6 +122,7 @@ function RootComponent() {
   
   return (
     <QueryClientProvider client={queryClient}>
+      <PlatformBanner />
       <AgeGate />
       <Toaster position="top-left" expand={true} richColors closeButton />
       <AppLayout>
