@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import hero from "@/assets/companions/katya.jpg";
 import { ChevronLeft } from "lucide-react";
@@ -16,6 +16,7 @@ export const Route = createFileRoute("/login")({
 
 function Login() {
   const nav = useNavigate();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
@@ -61,6 +62,9 @@ function Login() {
                 .select("role")
                 .eq("id", data.user?.id)
                 .single();
+              
+              // Invalidate router to refresh context before navigating
+              await router.invalidate();
 
               if (profile?.role === "admin") {
                 nav({ to: "/admin/" });

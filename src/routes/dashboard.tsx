@@ -1,11 +1,7 @@
-import { createFileRoute, Outlet, redirect, Link } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Navigate, Link } from "@tanstack/react-router";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Route = createFileRoute("/dashboard")({
-  beforeLoad: ({ context }) => {
-    if (!context.auth.loading && !context.auth.profile) {
-      throw redirect({ to: "/login" });
-    }
-  },
   component: DashboardLayout,
   notFoundComponent: () => (
     <div className="p-12 text-center glass-panel rounded-3xl border-white/5">
@@ -17,6 +13,22 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardLayout() {
+  const auth = useAuth();
+
+  if (auth.loading) {
+    return (
+      <div className="flex items-center justify-center py-32">
+        <div className="text-[10px] uppercase tracking-[0.4em] text-primary animate-pulse font-black">
+          Accessing Neural Link...
+        </div>
+      </div>
+    );
+  }
+
+  if (!auth.profile) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <div>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-10">

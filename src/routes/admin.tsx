@@ -3,11 +3,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { LayoutDashboard, Users, Image, CreditCard } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
-  beforeLoad: ({ context }) => {
-    if (!context.auth.loading && context.auth.profile?.role !== 'admin') {
-      throw redirect({ to: "/unauthorized" });
-    }
-  },
   component: AdminLayout,
 });
 
