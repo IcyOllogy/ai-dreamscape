@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/node";
+import * as Sentry from "@sentry/cloudflare";
 
 export function initSentryServer() {
   const dsn = process.env.VITE_SENTRY_DSN || process.env.SENTRY_DSN;

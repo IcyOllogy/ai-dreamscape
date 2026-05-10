@@ -2,6 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { companions, findCompanion, type Companion } from "@/data/companions";
 import { Send, Mic, Plus, MoreVertical, Phone, Users } from "lucide-react";
+import { useHaptics } from "@/hooks/use-haptics";
+import { sanitizeResponse } from "@/lib/security";
+import { createServerFn } from "@tanstack/react-start";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -25,6 +28,17 @@ const replies = [
   "I've been waiting for you to message me.",
 ];
 
+const generateReply = createServerFn().validator((text: string) => text).handler(async ({ data }) => {
+  // Simulate LLM delay
+  await new Promise(r => setTimeout(r, 1000 + Math.random() * 1000));
+  
+  // In a real app, this would call the LLM
+  const rawReply = replies[Math.floor(Math.random() * replies.length)];
+  
+  // Apply Pillar 4: Prompt Injection Guard
+  return sanitizeResponse(rawReply);
+});
+
 function ChatPage() {
   const [activeId, setActiveId] = useState<string>("katya");
   const [input, setInput] = useState("");
@@ -32,6 +46,7 @@ function ChatPage() {
   const [typing, setTyping] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { hapticClick, hapticRefill } = useHaptics();
 
   useEffect(() => {
     try {
@@ -61,24 +76,30 @@ function ChatPage() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, activeId, typing]);
 
-  const send = () => {
+  const send = async () => {
     const text = input.trim();
     if (!text) return;
+    
+    hapticClick();
     setInput("");
     setMessages((prev) => ({
       ...prev,
       [activeId]: [...(prev[activeId] ?? []), { from: "me", text, t: Date.now() }],
     }));
+    
     setTyping(true);
-    const delay = 800 + Math.random() * 1400;
-    setTimeout(() => {
-      const reply = replies[Math.floor(Math.random() * replies.length)];
+    
+    try {
+      const reply = await generateReply({ data: text });
       setMessages((prev) => ({
         ...prev,
         [activeId]: [...(prev[activeId] ?? []), { from: "her", text: reply, t: Date.now() }],
       }));
+    } catch (error) {
+      console.error("Failed to generate reply:", error);
+    } finally {
       setTyping(false);
-    }, delay);
+    }
   };
 
   return (

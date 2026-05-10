@@ -65,10 +65,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" },
       { title: "Dreamscape — Your AI Fantasy" },
       { name: "description", content: "The most realistic AI companionship platform. Private, high-fidelity, and incredibly real. 18+." },
       { name: "theme-color", content: "#020202" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { property: "og:title", content: "Dreamscape — Your AI Fantasy" },
       { property: "og:description", content: "Meet the girl of your dreams in high-fidelity AI realism." },
       { property: "og:type", content: "website" },
@@ -156,6 +158,8 @@ function RootComponent() {
   
   return (
     <QueryClientProvider client={queryClient}>
+      <div className="ambient-glow top-[-10%] left-[-10%] w-[40%] h-[40%]" />
+      <div className="ambient-glow bottom-[-10%] right-[-10%] w-[50%] h-[50%] opacity-10" />
       {isMaintenanceBlocked && <MaintenanceOverlay />}
       <PlatformBanner />
       <AgeGate />

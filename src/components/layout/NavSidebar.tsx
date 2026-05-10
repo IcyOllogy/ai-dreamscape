@@ -15,6 +15,7 @@ import {
   X
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { motion } from "framer-motion";
 
 interface NavSidebarProps {
   isOpen: boolean;
@@ -78,8 +79,14 @@ export function NavSidebar({ isOpen, onClose }: NavSidebarProps) {
         </div>
 
         <nav className="flex-1 space-y-8 overflow-y-auto pr-2 custom-scrollbar">
-          {sections.map((section) => (
-            <div key={section.title} className="space-y-3">
+          {sections.map((section, idx) => (
+            <motion.div 
+              key={section.title} 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              className="space-y-3"
+            >
               <h3 className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-bold px-3">
                 {section.title}
               </h3>
@@ -91,12 +98,17 @@ export function NavSidebar({ isOpen, onClose }: NavSidebarProps) {
                     activeProps={{ className: "bg-white/10 text-primary border-l-2 border-primary" }}
                     className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/5 transition-all group"
                   >
-                    {typeof item.icon !== 'string' && <item.icon className="w-4 h-4 transition-transform group-hover:scale-110" />}
+                    {typeof item.icon !== 'string' && (
+                      <item.icon 
+                        strokeWidth={1.5}
+                        className="w-4 h-4 transition-transform group-hover:scale-110" 
+                      />
+                    )}
                     <span>{item.label}</span>
                   </Link>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </nav>
       </div>
