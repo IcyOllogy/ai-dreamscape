@@ -28,16 +28,17 @@ const replies = [
   "I've been waiting for you to message me.",
 ];
 
-const generateReply = createServerFn().validator((text: string) => text).handler(async ({ data }) => {
-  // Simulate LLM delay
-  await new Promise(r => setTimeout(r, 1000 + Math.random() * 1000));
-  
-  // In a real app, this would call the LLM
-  const rawReply = replies[Math.floor(Math.random() * replies.length)];
-  
-  // Apply Pillar 4: Prompt Injection Guard
-  return sanitizeResponse(rawReply);
-});
+const generateReply = createServerFn({ method: "POST" })
+  .handler(async ({ data }: { data: string }) => {
+    // Simulate LLM delay
+    await new Promise((r) => setTimeout(r, 1000 + Math.random() * 1000));
+
+    // In a real app, this would call the LLM
+    const rawReply = replies[Math.floor(Math.random() * replies.length)];
+
+    // Apply Pillar 4: Prompt Injection Guard
+    return sanitizeResponse(rawReply);
+  });
 
 function ChatPage() {
   const [activeId, setActiveId] = useState<string>("katya");
