@@ -37,7 +37,7 @@ function Index() {
         </div>
 
         <div className="container relative z-10 px-6 lg:px-12">
-          <div className="max-w-3xl animate-slide-up">
+          <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-xs font-semibold text-primary mb-6">
               <Zap className="w-3 h-3 fill-current" />
               <span>Next-Gen AI Realism</span>

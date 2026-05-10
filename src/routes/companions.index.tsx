@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { companions, type Personality } from "@/data/companions";
 import { Heart, MessageCircle, Search, SlidersHorizontal } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/companions/")({
   head: () => ({
@@ -94,9 +95,10 @@ function Gallery() {
               to="/companions/$id"
               params={{ id: c.id }}
               key={c.id}
-              className="group relative aspect-[2/3] rounded-3xl overflow-hidden glass-card animate-slide-up"
+              className="group relative aspect-[2/3] rounded-3xl overflow-hidden glass-card"
             >
-              <img
+              <motion.img
+                layoutId={`companion-img-${c.id}`}
                 src={c.image}
                 alt={c.name}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"

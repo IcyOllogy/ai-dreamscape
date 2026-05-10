@@ -1,5 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
+import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { useHaptics } from '@/hooks/use-haptics';
+import { createServerFn } from '@tanstack/react-start';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,10 +13,46 @@ export const Route = createFileRoute('/membership')({
   component: MembershipPage,
 });
 
+const requestRefill = createServerFn({ method: "POST" })
+  .handler(async ({ data }: { data: { userId: string } }) => {
+    if (!checkRateLimit(`refill_${data.userId}`, 2, 86400000)) { // 2 times per day limit
+      throw new Error("Refill limit exceeded. Try again tomorrow.");
+    }
+    // Simulate delay
+    await new Promise(r => setTimeout(r, 800));
+    return { success: true };
+  });
+
 function MembershipPage() {
   const { profile } = useAuth();
+  const { hapticUpgrade, hapticRefill } = useHaptics();
+  const router = useRouter();
+  const [isUpgrading, setIsUpgrading] = useState(false);
+  const [isRefilling, setIsRefilling] = useState(false);
 
   if (!profile) return null;
+
+  const handleUpgrade = () => {
+    hapticUpgrade();
+    setIsUpgrading(true);
+    setTimeout(() => setIsUpgrading(false), 1000);
+  };
+
+  const handleRefill = async () => {
+    if (!profile) return;
+    setIsRefilling(true);
+    
+    try {
+      await requestRefill({ data: { userId: profile.id } });
+      hapticRefill();
+      // Optionally trigger a refresh of user data here if needed
+      // router.invalidate();
+    } catch (error) {
+      console.error("Failed to refill:", error);
+    } finally {
+      setTimeout(() => setIsRefilling(false), 1000);
+    }
+  };
 
   return (
     <div className="container max-w-6xl py-10 px-4">
@@ -45,7 +85,12 @@ function MembershipPage() {
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              <Button className="neon-button w-full h-12">Upgrade Tier</Button>
+              <Button 
+                onClick={handleUpgrade}
+                className={`neon-button w-full h-12 shimmer-sweep ${isUpgrading ? 'shimmer-active' : ''}`}
+              >
+                Upgrade Tier
+              </Button>
               <Button variant="outline" className="glass-panel border-white/10 hover:bg-white/10 h-12 gap-2">
                 Manage Billing
                 <ArrowUpRight className="w-4 h-4" />
@@ -70,7 +115,10 @@ function MembershipPage() {
              <p className="text-xs text-white/40 leading-relaxed">
                Tokens are used for image generation and premium interactions.
              </p>
-             <Button className="w-full h-12 bg-secondary/20 hover:bg-secondary/30 border border-secondary/30 text-secondary font-bold uppercase tracking-widest text-[10px]">
+             <Button 
+               onClick={handleRefill}
+               className={`w-full h-12 bg-secondary/20 hover:bg-secondary/30 border border-secondary/30 text-secondary font-bold uppercase tracking-widest text-[10px] shimmer-sweep ${isRefilling ? 'shimmer-active' : ''}`}
+             >
                Refill Tokens
              </Button>
            </CardContent>

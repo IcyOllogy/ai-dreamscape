@@ -11,8 +11,10 @@ import {
   Clock, 
   RefreshCw,
   Zap,
-  History
+  History,
+  ShieldCheck
 } from "lucide-react";
+import * as Sentry from "@sentry/react";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminOverview,
@@ -100,7 +102,7 @@ function AdminOverview() {
   ];
 
   return (
-    <div className="space-y-10 animate-fade-in pb-20">
+    <div className="space-y-10 pb-20">
       <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-black tracking-tighter">System Overview</h1>
@@ -243,6 +245,24 @@ function AdminOverview() {
             ))}
             {auditLogs.length === 0 && <p className="text-xs text-zinc-600 italic">No recent activity detected.</p>}
           </div>
+        </div>
+      </div>
+      <div className="glass-panel p-8 rounded-3xl border-white/5 border-t-2 border-t-primary/20">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <ShieldCheck className="w-5 h-5 text-primary" />
+            <h3 className="text-sm font-bold uppercase tracking-widest">System Health & Telemetry</h3>
+          </div>
+          <button 
+            onClick={() => {
+              const error = new Error("Admin Diagnostic Test: Manual Trigger");
+              Sentry.captureException(error);
+              alert("Diagnostic exception sent to Sentry.");
+            }}
+            className="px-6 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-[8px] uppercase tracking-widest font-black text-red-400 hover:bg-red-500/20 transition-all"
+          >
+            Trigger Sentry Diagnostic
+          </button>
         </div>
       </div>
     </div>

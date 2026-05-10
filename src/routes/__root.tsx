@@ -7,7 +7,9 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useLocation,
 } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "framer-motion";
 import appCss from "../styles.css?url";
 import { AgeGate } from "@/components/site/AgeGate";
 import { Navigation } from "@/components/site/Navigation";
@@ -74,7 +76,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { property: "og:title", content: "Dreamscape — Your AI Fantasy" },
       { property: "og:description", content: "Meet the girl of your dreams in high-fidelity AI realism." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://ai-dreamscape.com/og-proxy?name=Dreamscape" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://ai-dreamscape.com/og-proxy?name=Dreamscape" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -165,7 +169,23 @@ function RootComponent() {
       <AgeGate />
       <Toaster position="top-left" expand={true} richColors closeButton />
       <AppLayout>
-        <Outlet />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={useLocation().key}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 100, 
+              damping: 25, 
+              mass: 1.2 
+            }}
+            className="h-full w-full"
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </AppLayout>
     </QueryClientProvider>
   );

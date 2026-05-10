@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Sparkles, Zap, Megaphone } from "lucide-react";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -176,16 +177,22 @@ function Pricing() {
                     ))}
                   </div>
 
-                  <Link
-                    to="/signup"
-                    className={`w-full py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] text-center transition-all ${
-                      t.is_featured 
-                        ? "neon-button shadow-neon" 
-                        : "glass-panel hover:bg-white/10 hover:text-white"
-                    }`}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
                   >
-                    {finalPrice === 0 ? "Start Free" : "Get Access"}
-                  </Link>
+                    <Link
+                      to="/signup"
+                      className={`w-full block py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] text-center transition-all shimmer-sweep ${
+                        t.is_featured 
+                          ? "neon-button shadow-neon" 
+                          : "glass-panel hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {finalPrice === 0 ? "Start Free" : "Get Access"}
+                    </Link>
+                  </motion.div>
                 </div>
               );
             })
