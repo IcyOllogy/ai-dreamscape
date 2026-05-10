@@ -3,44 +3,55 @@
 This document outlines the administrative interface for **AI Dreamscape**, providing tools for platform oversight, user management, and revenue optimization.
 
 ## 1. Platform Metrics Dashboard (Pulse)
-A high-level overview of the platform's health and growth.
+A high-performance overview of the platform's health and growth.
 
 - **KPI Cards**:
   - **Revenue**: Total earnings (Today/This Week/Total).
-  - **DAU (Daily Active Users)**: Real-time user activity tracking.
+  - **Active Sessions**: Real-time count of users with currently open sessions (`ended_at IS NULL`).
   - **Token Velocity**: Monitoring token consumption and refill rates.
-- **Charts**:
-  - **Growth Curve**: User signup trends over time.
-  - **Popular Companions**: Identifying which AI personas are generating the most engagement.
-- **Access Control**: Strictly restricted to users with the `admin` role via RLS and middleware.
+  - **DAU & Churn**: Real-time Daily Active Users and "Churn Rate" tracking (users inactive for 30+ days).
+- **Growth Analytics**:
+  - **Historical View**: Toggle between **Daily / Weekly / Monthly** signup and activity trends.
+  - **Telemetry**: Powered by a pre-calculated `daily_metrics` table and Postgres views (`v_admin_metrics`) for maximum scalability.
 
 ## 2. User Management System
 The central hub for moderating and supporting the user base.
 
 - **Data Table**:
   - **Columns**: Handle, Email, Role, Joined Date, Total Tokens, Status (Active/Suspended).
-  - **Search/Filter**: Search by handle/email, filter by role (Free, Pro, VIP, Admin).
+  - **Search/Filter**: Deep search by handle/email, filter by role (Free, Pro, VIP, Admin).
 - **Actions**:
   - **Manual Role Override**: Capability to grant/revoke VIP or Admin status.
-  - **Token Adjustment**: Manually add/remove tokens for customer support cases.
-  - **Suspension Toggle**: Block/Unblock users from accessing platform features.
+  - **Token Adjustment**: Add/remove tokens with a mandatory "Reason" field for auditing.
+  - **Moderation**: One-click **Ban/Unban** toggle to restrict platform access.
+- **Data Portability**: **CSV Export** button to download the current user list for external auditing.
 
-## 3. Dynamic Pricing & Tier CRUD
-An interface to manage the platform's economic model without code changes.
+## 3. Dynamic Pricing & Sale Manager
+A commerce engine to manage the platform's economy without code changes.
 
 - **Tier Management**:
-  - Edit existing tier prices, token allotments, and feature access.
-  - CRUD interface for "Token Refill" packages.
-- **Audit Logs**: Track who changed pricing and when.
+  - **Intervals**: Support for both **Monthly** and **Yearly** pricing for every tier.
+  - **Specific Sales**: Dedicated `sale_price` fields for each interval to allow granular control.
+- **Global Sale Controls**:
+  - **Master Toggle**: Activate a site-wide sale mode.
+  - **Sale Banner**: Automatically triggers a high-visibility announcement banner across the entire platform.
+- **Public Integration**: Update the consumer `/pricing` page with a switch to toggle between Monthly and Yearly billing.
 
 ## 4. Platform Health & Security
-- **Sentry Overview**: Embedded link or summary of recent critical errors.
-- **Resource Usage**: Monitoring Supabase storage and database health.
+- **Admin Audit Logs**: Comprehensive history of all admin actions (price changes, bans, token edits) including previous/new values.
+- **Resource Monitoring**: Links to Supabase storage and database health telemetry.
 
 ## 5. Technical Implementation Steps
 
-1.  **Admin Routing**: Secure `/admin/*` routes using TanStack Router and role-based protection.
-2.  **Metrics Integration**: Implement efficient Postgres queries/views for DAU and Revenue tracking.
-3.  **User Management UI**: Build a high-performance table component with server-side pagination and filtering.
-4.  **Pricing Interface**: Create the forms and backend triggers for real-time pricing updates.
-5.  **Access Verification**: Audit all `/admin` API endpoints and RLS policies to ensure total isolation from regular users.
+1.  **Database Infrastructure**:
+    - Update `pricing_plans` with interval and sale columns.
+    - Create `platform_settings` table and `v_admin_metrics` view.
+2.  **Admin Routing**: Secure `/admin/*` routes using TanStack Router role-based protection.
+3.  **Metrics Integration**: Wire up the dashboard to the performance-optimized Postgres views.
+4.  **Moderation UI**: Build the User Management table with functional Ban/Token adjustment modals.
+5.  **Pricing Interface**: Create the Pricing Manager with interval support and the Global Sale Master Toggle.
+6.  **Export Engine**: Implement CSV generation for User and Transaction tables.
+7.  **Final Polish**: Deploy the site-wide Sale Banner and finalize responsive layout for mobile admin oversight.
+
+---
+**Currency**: All platform transactions are architected in **USD ($)**.
