@@ -7,11 +7,12 @@ The objective of Phase 5 is to transition AI Dreamscape from a functional utilit
 
 ## 📦 Required Stack & Dependencies
 A new agent must ensure these are available before starting:
-- **Animations**: `framer-motion` (for Silky Motion and Shared Elements).
+- **Animations**: `framer-motion` (Mandatory for Silky Motion).
 - **Icons**: `lucide-react` (standardized to 1.5px stroke width).
-- **SEO**: `react-helmet-async` (or TanStack Router's built-in Meta manager).
-- **OG Generation**: `satori` + `resvg-js` (inside Supabase Edge Functions).
-- **Audio**: Native `Web Audio API` (no external libraries).
+- **SEO**: TanStack Router's built-in `Meta` manager (No external helmet libraries).
+- **PWA**: `vite-plugin-pwa` (for Service Worker & Manifest).
+- **OG Generation**: Cloudflare Workers + `satori` (Consolidated with hosting).
+- **Audio**: Native `Web Audio API` (Oscillator-based haptics).
 
 ---
 
@@ -41,6 +42,7 @@ Engagement is driven by sensory rewards.
     - **Button Click**: A muffled, high-end "thud" (Frequency: 200Hz, duration: 0.05s).
 
 ### 2.2 PWA Native Experience
+- **Automation**: Use `vite-plugin-pwa` to manage the Service Worker and manifest generation.
 - **Manifest**: Use `public/icon-512.png` (Neon 'D' Outline) for all splash screens and icons.
 - **Native Lock-down**: 
     - CSS: `html, body { overscroll-behavior: none; touch-action: pan-x pan-y; }`
@@ -52,6 +54,7 @@ Engagement is driven by sensory rewards.
 Zero-downtime monitoring and error-free UX.
 
 ### 3.1 Sentry Configuration
+- **Environment**: Use `@sentry/cloudflare` for the server-side to ensure compatibility with Cloudflare Workers.
 - **Safe Mode**: Initialization logic must check `VITE_SENTRY_DSN`. If missing, it must `console.info("Sentry Dev Mode Active")` without crashing the app.
 - **User Identity Sync**: Crucial: The app must call `Sentry.setUser({ id: user.id })` upon Supabase auth confirmation to link errors to specific user accounts.
 - **Diagnostic Panel**: Add a hidden "Diagnostic" button in the Admin panel to manually trigger a `Sentry.captureException()` for testing.
@@ -63,7 +66,9 @@ Proving the platform is unbreakable.
 
 ### 4.1 Security Audit Tasks
 1. **RLS Penetration Test**: Attempt to fetch rows from `companions`, `user_assets`, or `profiles` using a foreign `user_id` from the browser console.
-2. **Prompt Injection Defense**: Audit the `chat.tsx` interface. Attempt to trick the companion into revealing its "System Prompt." If it succeeds, implement a "System Prompt Guard" layer.
+2. **Prompt Injection Defense**: 
+    - Audit the `chat.tsx` interface for client-side leaks.
+    - **Prompt Injection Guard**: Implement a server-side interceptor that scans LLM responses for "system prompt leakage" or restricted keywords before they reach the client.
 3. **API Rate Limiting**: Implement/Verify rate limiting on the `/refill` and `/generate` endpoints to prevent "Token Exhaustion" attacks by bots.
 4. **Audit Artifact**: All results must be documented in a new `SECURITY_AUDIT.md` file.
 
@@ -73,9 +78,20 @@ Proving the platform is unbreakable.
 Professional-grade social sharing to drive conversion.
 
 ### 5.1 Open Graph (OG) Integration
-- **Edge-Function Logic**: Use a **Supabase Edge Function** as a metadata proxy. Use `satori` for SVG-to-PNG conversion of the companion preview card.
+- **Worker Logic**: Use a **Cloudflare Worker** as a metadata proxy. Use `satori` for SVG-to-PNG conversion of the companion preview card.
 - **Dynamic Cards**: Preview images must show the Companion's Name, Avatar, and a "Dreamscape Premium" watermark.
-- **SEO Component**: Create a central `SEO` manager to update `<title>` and `<meta>` tags dynamically based on the current companion or dashboard view.
+- **SEO Component**: Use TanStack Router's built-in `Meta` system to update `<title>` and `<meta>` tags dynamically.
+
+---
+
+## 🛠️ Pillar 6: The "Ultra-Lux" Media Engine
+Handling high-fidelity 8K assets without performance degradation.
+
+### 6.1 Progressive 8K Loading
+- **Image Strategy**: Use Cloudflare Images/R2 for dynamic resizing.
+- **LQIP (Low-Quality Image Placeholders)**: Serve a 10KB blurred version instantly to ensure the UI feels reactive.
+- **AVIF Conversion**: Always prefer AVIF for 8K master files to reduce bandwidth while maintaining "Luxury" fidelity.
+- **Lazy Upgrade**: Only load the full 8K master when the user initiates "Full Screen" or "Download Original" modes.
 
 ---
 
