@@ -35,7 +35,7 @@ function Unauthorized() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to="/dashboard"
+            to="/dashboard/"
             className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white text-black text-xs font-black uppercase tracking-[0.2em] hover:bg-zinc-200 transition-all flex items-center justify-center gap-2"
           >
             <Home className="w-4 h-4" /> Go to Dashboard

@@ -71,6 +71,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { title: "Dreamscape — Your AI Fantasy" },
       { name: "description", content: "The most realistic AI companionship platform. Private, high-fidelity, and incredibly real. 18+." },
       { name: "theme-color", content: "#020202" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { property: "og:title", content: "Dreamscape — Your AI Fantasy" },

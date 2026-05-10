@@ -63,9 +63,9 @@ function Login() {
                 .single();
 
               if (profile?.role === "admin") {
-                nav({ to: "/admin" });
+                nav({ to: "/admin/" });
               } else {
-                nav({ to: "/dashboard" });
+                nav({ to: "/dashboard/" });
               }
             }}
             className="space-y-6"

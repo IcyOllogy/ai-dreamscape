@@ -38,7 +38,7 @@ function AdminGallery() {
     setLoading(true);
     try {
       let query = supabase
-        .from("user_gallery")
+        .from("user_assets")
         .select(`
           *,
           profiles (
@@ -65,7 +65,7 @@ function AdminGallery() {
   async function deleteImage(id: string) {
     if (!confirm("Are you sure you want to permanently delete this image?")) return;
     try {
-      const { error } = await supabase.from("user_gallery").delete().eq("id", id);
+      const { error } = await supabase.from("user_assets").delete().eq("id", id);
       if (error) throw error;
       toast.success("Image expunged from memory.");
       setItems(items.filter(i => i.id !== id));
@@ -78,7 +78,7 @@ function AdminGallery() {
   async function togglePrivacy(item: GalleryItem) {
     try {
       const { error } = await supabase
-        .from("user_gallery")
+        .from("user_assets")
         .update({ is_public: !item.is_public })
         .eq("id", item.id);
       

@@ -16,8 +16,10 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as GenerateRouteImport } from './routes/generate'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CompanionsRouteImport } from './routes/companions'
+import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as UsernameRouteImport } from './routes/$username'
@@ -25,6 +27,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as CompanionsIndexRouteImport } from './routes/companions.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
 import { Route as CompanionsIdRouteImport } from './routes/companions.$id'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
@@ -65,6 +68,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GenerateRoute = GenerateRouteImport.update({
+  id: '/generate',
+  path: '/generate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -73,6 +81,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const CompanionsRoute = CompanionsRouteImport.update({
   id: '/companions',
   path: '/companions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionRoute = CollectionRouteImport.update({
+  id: '/collection',
+  path: '/collection',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -110,6 +123,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const CompanionsIdRoute = CompanionsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -136,8 +154,10 @@ export interface FileRoutesByFullPath {
   '/$username': typeof UsernameRoute
   '/admin': typeof AdminRouteWithChildren
   '/chat': typeof ChatRoute
+  '/collection': typeof CollectionRoute
   '/companions': typeof CompanionsRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
+  '/generate': typeof GenerateRoute
   '/login': typeof LoginRoute
   '/membership': typeof MembershipRoute
   '/pricing': typeof PricingRoute
@@ -149,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/admin/': typeof AdminIndexRoute
   '/companions/': typeof CompanionsIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -157,6 +178,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
   '/chat': typeof ChatRoute
+  '/collection': typeof CollectionRoute
+  '/generate': typeof GenerateRoute
   '/login': typeof LoginRoute
   '/membership': typeof MembershipRoute
   '/pricing': typeof PricingRoute
@@ -168,6 +191,7 @@ export interface FileRoutesByTo {
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/admin': typeof AdminIndexRoute
   '/companions': typeof CompanionsIndexRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -178,8 +202,10 @@ export interface FileRoutesById {
   '/$username': typeof UsernameRoute
   '/admin': typeof AdminRouteWithChildren
   '/chat': typeof ChatRoute
+  '/collection': typeof CollectionRoute
   '/companions': typeof CompanionsRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
+  '/generate': typeof GenerateRoute
   '/login': typeof LoginRoute
   '/membership': typeof MembershipRoute
   '/pricing': typeof PricingRoute
@@ -191,6 +217,7 @@ export interface FileRoutesById {
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/users': typeof AdminUsersRoute
   '/companions/$id': typeof CompanionsIdRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/admin/': typeof AdminIndexRoute
   '/companions/': typeof CompanionsIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -202,8 +229,10 @@ export interface FileRouteTypes {
     | '/$username'
     | '/admin'
     | '/chat'
+    | '/collection'
     | '/companions'
     | '/dashboard'
+    | '/generate'
     | '/login'
     | '/membership'
     | '/pricing'
@@ -215,6 +244,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
+    | '/dashboard/transactions'
     | '/admin/'
     | '/companions/'
     | '/dashboard/'
@@ -223,6 +253,8 @@ export interface FileRouteTypes {
     | '/'
     | '/$username'
     | '/chat'
+    | '/collection'
+    | '/generate'
     | '/login'
     | '/membership'
     | '/pricing'
@@ -234,6 +266,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
+    | '/dashboard/transactions'
     | '/admin'
     | '/companions'
     | '/dashboard'
@@ -243,8 +276,10 @@ export interface FileRouteTypes {
     | '/$username'
     | '/admin'
     | '/chat'
+    | '/collection'
     | '/companions'
     | '/dashboard'
+    | '/generate'
     | '/login'
     | '/membership'
     | '/pricing'
@@ -256,6 +291,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/users'
     | '/companions/$id'
+    | '/dashboard/transactions'
     | '/admin/'
     | '/companions/'
     | '/dashboard/'
@@ -266,8 +302,10 @@ export interface RootRouteChildren {
   UsernameRoute: typeof UsernameRoute
   AdminRoute: typeof AdminRouteWithChildren
   ChatRoute: typeof ChatRoute
+  CollectionRoute: typeof CollectionRoute
   CompanionsRoute: typeof CompanionsRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
+  GenerateRoute: typeof GenerateRoute
   LoginRoute: typeof LoginRoute
   MembershipRoute: typeof MembershipRoute
   PricingRoute: typeof PricingRoute
@@ -328,6 +366,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/generate': {
+      id: '/generate'
+      path: '/generate'
+      fullPath: '/generate'
+      preLoaderRoute: typeof GenerateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -340,6 +385,13 @@ declare module '@tanstack/react-router' {
       path: '/companions'
       fullPath: '/companions'
       preLoaderRoute: typeof CompanionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collection': {
+      id: '/collection'
+      path: '/collection'
+      fullPath: '/collection'
+      preLoaderRoute: typeof CollectionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -390,6 +442,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/dashboard/transactions': {
+      id: '/dashboard/transactions'
+      path: '/transactions'
+      fullPath: '/dashboard/transactions'
+      preLoaderRoute: typeof DashboardTransactionsRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/companions/$id': {
       id: '/companions/$id'
@@ -453,10 +512,12 @@ const CompanionsRouteWithChildren = CompanionsRoute._addFileChildren(
 )
 
 interface DashboardRouteChildren {
+  DashboardTransactionsRoute: typeof DashboardTransactionsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardTransactionsRoute: DashboardTransactionsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -469,8 +530,10 @@ const rootRouteChildren: RootRouteChildren = {
   UsernameRoute: UsernameRoute,
   AdminRoute: AdminRouteWithChildren,
   ChatRoute: ChatRoute,
+  CollectionRoute: CollectionRoute,
   CompanionsRoute: CompanionsRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
+  GenerateRoute: GenerateRoute,
   LoginRoute: LoginRoute,
   MembershipRoute: MembershipRoute,
   PricingRoute: PricingRoute,

@@ -27,8 +27,34 @@ export const Route = createFileRoute('/$username')({
       .eq('username', username)
       .single();
 
-    if (error || !profile) {
-      throw new Error('Profile not found');
+    if (profile) {
+      // Handle Avatar signed URL
+      if (profile.avatar_url && !profile.avatar_url.startsWith('http')) {
+        const { data: signedData, error: signedError } = await supabase.storage
+          .from('avatars')
+          .createSignedUrl(profile.avatar_url, 3600);
+        
+        if (!signedError) {
+          profile.avatar_url = signedData.signedUrl;
+        } else {
+          profile.avatar_url = '/avatar.png';
+        }
+      } else if (!profile.avatar_url) {
+        profile.avatar_url = '/avatar.png';
+      }
+
+      // Handle Banner signed URL
+      if (profile.banner_url && !profile.banner_url.startsWith('http')) {
+        const { data: signedData, error: signedError } = await supabase.storage
+          .from('banners')
+          .createSignedUrl(profile.banner_url, 3600);
+        
+        if (!signedError) {
+          profile.banner_url = signedData.signedUrl;
+        } else {
+          profile.banner_url = null;
+        }
+      }
     }
 
     return { profile };

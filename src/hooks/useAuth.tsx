@@ -116,7 +116,12 @@ export function useAuth() {
         
         if (!signedError) {
           avatarUrl = signedData.signedUrl;
+        } else {
+          console.error('Error creating signed URL for avatar:', signedError);
+          avatarUrl = '/avatar.png';
         }
+      } else if (!avatarUrl) {
+        avatarUrl = '/avatar.png';
       }
 
       // Handle Banner signed URL
@@ -127,6 +132,9 @@ export function useAuth() {
         
         if (!signedError) {
           bannerUrl = signedData.signedUrl;
+        } else {
+          console.error('Error creating signed URL for banner:', signedError);
+          bannerUrl = null;
         }
       }
 

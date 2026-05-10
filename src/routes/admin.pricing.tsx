@@ -75,9 +75,12 @@ function AdminPricing() {
       const maint = data.find(s => s.key === 'maintenance_mode')?.value;
       const announce = data.find(s => s.key === 'global_announcement')?.value;
       
-      if (sale !== undefined) setGlobalSalePercent(Number(sale));
-      if (maint !== undefined) setMaintenanceMode(Boolean(maint));
-      if (announce !== undefined) setAnnouncement(announce?.text || "");
+      if (sale !== undefined) {
+        const val = typeof sale === 'object' && sale !== null ? (sale as any).value : sale;
+        setGlobalSalePercent(Number(val) || 0);
+      }
+      if (maint !== undefined) setMaintenanceMode(Boolean(typeof maint === 'object' && maint !== null ? (maint as any).value : maint));
+      if (announce !== undefined) setAnnouncement(announce?.text || announce?.value || "");
     } catch (error) {
       console.error("Error fetching settings:", error);
     }

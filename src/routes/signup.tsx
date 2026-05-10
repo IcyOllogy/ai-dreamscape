@@ -59,7 +59,7 @@ function Signup() {
                 return;
               }
 
-              nav({ to: "/dashboard" });
+              nav({ to: "/dashboard/" });
             }}
             className="space-y-5"
           >

@@ -37,7 +37,10 @@ export function ProfileHero({ profile, isOwner }: ProfileHeroProps) {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-40"></div>
             <Avatar className="h-24 w-24 md:h-32 md:w-32 border-4 border-background ring-2 ring-white/10 relative">
-              <AvatarImage src={profile.avatar_url || ''} className="object-cover" />
+              <AvatarImage 
+                src={profile.avatar_url && profile.avatar_url.startsWith('http') ? profile.avatar_url : '/avatar.png'} 
+                className="object-cover" 
+              />
               <AvatarFallback className="bg-background text-primary text-2xl font-bold">
                 {initials}
               </AvatarFallback>

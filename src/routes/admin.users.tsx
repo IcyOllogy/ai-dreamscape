@@ -261,7 +261,7 @@ function AdminUsers() {
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center border border-white/10 overflow-hidden">
-                          {u.avatar_url ? (
+                          {u.avatar_url && u.avatar_url.startsWith('http') ? (
                             <img src={u.avatar_url} alt="" className="w-full h-full object-cover" />
                           ) : (
                             <Shield className="w-4 h-4 text-primary" />
@@ -334,7 +334,7 @@ function AdminUsers() {
             <div className="p-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary/20 to-purple-500/20 border border-white/10 flex items-center justify-center overflow-hidden">
-                  {selectedUser.avatar_url ? (
+                  {selectedUser.avatar_url && selectedUser.avatar_url.startsWith('http') ? (
                     <img src={selectedUser.avatar_url} alt="" className="w-full h-full object-cover" />
                   ) : (
                     <Shield className="w-8 h-8 text-primary" />

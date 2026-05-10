@@ -27,7 +27,7 @@ export function Navigation() {
 
   const dynamicItems = [
     ...navItems,
-    ...(profile?.role === 'admin' ? [{ label: "Admin", icon: Shield, to: "/admin" }] : []),
+    ...(profile?.role === 'admin' ? [{ label: "Admin", icon: Shield, to: "/admin/" }] : []),
   ];
 
   const initials = profile?.display_name
@@ -68,7 +68,7 @@ export function Navigation() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild className="hover:bg-white/10 cursor-pointer focus:bg-white/10 focus:text-white">
-                <Link to="/dashboard" className="flex items-center w-full">
+                <Link to="/dashboard/" className="flex items-center w-full">
                   <LayoutDashboard className="mr-2 h-4 w-4 text-secondary" />
                   <span>Dashboard</span>
                 </Link>
