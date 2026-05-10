@@ -71,9 +71,12 @@ function Login() {
             className="space-y-6"
           >
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Email Address</label>
+              <label htmlFor="email" className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Email Address</label>
               <input
+                id="email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -84,11 +87,14 @@ function Login() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between ml-1">
-                <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500">Password</label>
+                <label htmlFor="password" className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500">Password</label>
                 <button type="button" className="text-[10px] uppercase tracking-[0.2em] text-primary hover:underline">Forgot?</button>
               </div>
               <input
+                id="password"
+                name="password"
                 type="password"
+                autoComplete="current-password"
                 required
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}

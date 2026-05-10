@@ -144,6 +144,8 @@ function SettingsPage() {
                       <Label htmlFor="display_name" className="text-white/70">Display Name</Label>
                       <Input 
                         id="display_name" 
+                        name="display_name"
+                        autoComplete="name"
                         value={formData.display_name}
                         onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
                         className="bg-white/5 border-white/10 text-white focus:ring-primary/50"
@@ -153,6 +155,8 @@ function SettingsPage() {
                       <Label htmlFor="username" className="text-white/70">Handle (@username)</Label>
                       <Input 
                         id="username" 
+                        name="username"
+                        autoComplete="username"
                         value={formData.username}
                         onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                         className="bg-white/5 border-white/10 text-white focus:ring-primary/50"
@@ -167,6 +171,7 @@ function SettingsPage() {
                     </div>
                     <textarea 
                       id="bio"
+                      name="bio"
                       value={formData.bio}
                       maxLength={160}
                       onChange={(e) => setFormData({ ...formData, bio: e.target.value })}

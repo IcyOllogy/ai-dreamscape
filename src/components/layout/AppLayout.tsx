@@ -22,7 +22,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
+    <div className="min-h-screen bg-background relative">
       {/* Background Glows */}
       <div className="ambient-glow w-[600px] h-[600px] -top-48 -left-48" />
       <div className="ambient-glow w-[500px] h-[500px] bottom-0 -right-24" style={{ animationDelay: '-4s' }} />

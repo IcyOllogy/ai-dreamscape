@@ -64,9 +64,12 @@ function Signup() {
             className="space-y-5"
           >
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">What should we call you?</label>
+              <label htmlFor="name" className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">What should we call you?</label>
               <input
+                id="name"
+                name="name"
                 type="text"
+                autoComplete="name"
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -76,9 +79,12 @@ function Signup() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Email Address</label>
+              <label htmlFor="email" className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Email Address</label>
               <input
+                id="email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -88,9 +94,12 @@ function Signup() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Password</label>
+              <label htmlFor="password" className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500 ml-1">Password</label>
               <input
+                id="password"
+                name="password"
                 type="password"
+                autoComplete="new-password"
                 required
                 value={form.pw}
                 onChange={(e) => setForm({ ...form, pw: e.target.value })}
@@ -101,11 +110,17 @@ function Signup() {
 
             <div className="flex items-start gap-3 p-4 bg-white/5 rounded-2xl border border-white/10 mt-6">
               <div className="mt-1">
-                <input type="checkbox" required className="w-4 h-4 rounded border-white/10 accent-primary" />
+                <input 
+                  id="age-confirm"
+                  name="age-confirm"
+                  type="checkbox" 
+                  required 
+                  className="w-4 h-4 rounded border-white/10 accent-primary" 
+                />
               </div>
-              <div className="text-[11px] leading-relaxed text-zinc-400">
+              <label htmlFor="age-confirm" className="text-[11px] leading-relaxed text-zinc-400 cursor-pointer">
                 I confirm I am 18+ and agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a> and <a href="#" className="text-primary hover:underline">Privacy Policy</a>.
-              </div>
+              </label>
             </div>
 
             <button className="w-full neon-button py-5 text-sm uppercase tracking-[0.2em] mt-4">

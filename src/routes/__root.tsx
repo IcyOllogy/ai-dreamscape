@@ -182,7 +182,7 @@ function RootComponent() {
               damping: 25, 
               mass: 1.2 
             }}
-            className="h-full w-full"
+            className="min-h-full w-full"
           >
             <Outlet />
           </motion.div>

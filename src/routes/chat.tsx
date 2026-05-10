@@ -204,6 +204,9 @@ function ChatPage() {
             <div className="max-w-4xl mx-auto glass-panel rounded-2xl p-2 flex items-center gap-2 shadow-glass">
               <button className="p-3 hover:text-primary transition-colors rounded-xl hover:bg-white/5"><Plus className="w-5 h-5" /></button>
               <input
+                id="chat-input"
+                name="chat-input"
+                autoComplete="off"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && send()}

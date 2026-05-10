@@ -24,10 +24,9 @@
 @layer base {
   html, body {
     background: var(--background-midnight);
-    @apply text-white font-sans overflow-x-hidden;
+    @apply text-white font-sans overflow-x-hidden overflow-y-auto;
     min-height: 100vh;
-    overscroll-behavior: none;
-    touch-action: pan-x pan-y;
+    scroll-behavior: smooth;
   }
 }
 

@@ -19,6 +19,7 @@ import {
   Clock
 } from "lucide-react";
 import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/admin/users")({
   component: AdminUsers,
@@ -228,6 +229,8 @@ function AdminUsers() {
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
             <input
+              id="user-search"
+              name="user-search"
               type="text"
               placeholder="Search by @username..."
               value={search}
@@ -385,9 +388,11 @@ function AdminUsers() {
 
                 <section className="space-y-4">
                   <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-500 flex items-center gap-2">
-                    <FileText className="w-3 h-3" /> Internal Admin Notes
+                    <FileText className="w-3 h-3" /> <label htmlFor="admin-notes">Internal Admin Notes</label>
                   </h3>
                   <textarea 
+                    id="admin-notes"
+                    name="admin-notes"
                     defaultValue={selectedUser.admin_notes || ''}
                     onBlur={(e) => saveAdminNotes(e.target.value)}
                     placeholder="Document user behavior, infractions, or special VIP status details..."
@@ -423,7 +428,10 @@ function AdminUsers() {
                       <span className="text-2xl font-black text-primary">{selectedUser.tokens_balance.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center gap-4">
+                      <Label htmlFor="token-amount" className="sr-only">Token Amount</Label>
                       <input 
+                        id="token-amount"
+                        name="token-amount"
                         type="number"
                         placeholder="Amount..."
                         value={tokenAmount || ''}
@@ -431,12 +439,17 @@ function AdminUsers() {
                         className="flex-1 bg-black/40 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-primary"
                       />
                     </div>
-                    <textarea 
-                      placeholder="Audit Reason..."
-                      value={adjustReason}
-                      onChange={(e) => setAdjustReason(e.target.value)}
-                      className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-primary h-20 resize-none"
-                    />
+                    <div className="space-y-2">
+                      <Label htmlFor="adjust-reason" className="sr-only">Audit Reason</Label>
+                      <textarea 
+                        id="adjust-reason"
+                        name="adjust-reason"
+                        placeholder="Audit Reason..."
+                        value={adjustReason}
+                        onChange={(e) => setAdjustReason(e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-primary h-20 resize-none"
+                      />
+                    </div>
                     <button 
                       onClick={adjustTokens}
                       disabled={isProcessing}
