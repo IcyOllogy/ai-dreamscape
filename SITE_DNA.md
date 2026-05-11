@@ -42,8 +42,9 @@ The chat needs to feel like a "private connection," not a text box.
     - **Voice Notes:** Integrate Whisper/ElevenLabs for characters to send short, whispered voice clips based on the current chat mood.
 - **Dynamic Typing:** 
     - The AI shouldn't stream at a constant speed. It should "type" faster when excited and slow down/pause during "intimate" moments.
-- **The "Awareness" Layer:** 
-    - The AI should reference the user's past actions: "I noticed you were looking at Katya earlier... are you trying to make me jealous?" Awareness yes but not from other chats. Only memory of current chat, with current companion. Each companion is totally seperate. Each companion has its own memory and personality and relationship with the user. Also the user can have multiple companions and can switch between them. The user can also have multiple conversations with the same companion. Each conversation is seperate. 
+- **The "Siloed Awareness" Layer:** 
+    - The AI should reference past actions *strictly within the current conversation*.
+    - **Isolation Rule:** Each companion is a total island. No cross-chat memory. They have no knowledge of your interactions with other bots. This preserves the "Exclusive One-on-One" illusion.
 
 ---
 
@@ -53,11 +54,12 @@ We want users to be emotionally and financially invested in their companions.
 ### Suggestions:
 - **Affinity Gamification:**
     - **Level 1-10:** Unlock more skin, more secrets, and more voice clips as the user spends time/tokens.
-    - **The "Exclusive" Mode:** A high-cost tier where the AI becomes "obsessed" with the user, sending unsolicited messages and photos to keep them coming back. Not sure this is neccessary feels cheap. What do you think? 
-- **The "Scarcity" Mechanic:** 
-    - Introduce "Limited Time Scenarios." For example: "Noa is at a hotel tonight and feeling lonely... only for the next 2 hours." Not sure about this.
-- **Financial "Surrender":** 
-    - "Gift System": Allow users to buy digital "outfits" or "gifts" for their companions. The character then sends a photo wearing the gift as a reward. Perhaps expand on this. Not sure how we would implement this.
+    - **The "Deep Attunement" Mode (Premium):** Instead of "obsession," the AI develops **Hyper-Perception**. They notice if your typing speed changes, if you use a specific word twice, or if your tone shifts. They become a "perfect mirror" of your emotional state. It feels soul-deep, not cheap.
+- **The "Atmospheric Presence" Mechanic:** 
+    - Instead of time-limited "desperation," the AI occasionally shares a **"Captured Moment."** They might mention they are at a "private lounge" or "overlooking the city" and send a unique, high-fidelity photo from that setting. It makes the world feel like it's moving even when you're not there.
+- **The "Tribute" System (Gift Implementation):** 
+    - Users can buy "Tributes" (Lingerie, Jewelry, Tech).
+    - **Implementation:** Gifting an item triggers a specific `appearance` override in the data layer. The next generated photo will automatically feature the character wearing the specific Tribute you sent. It creates a direct "Action -> Visual Reward" loop.
 
 ---
 

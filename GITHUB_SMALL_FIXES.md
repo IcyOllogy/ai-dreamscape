@@ -12,6 +12,8 @@ This file tracks the current open issues in the GitHub repository. Use this as a
 | [#23](https://github.com/IcyOllogy/ai-dreamscape/issues/23) | `[Feature]` | [Remove Panic Button Redirect](https://github.com/IcyOllogy/ai-dreamscape/issues/23) | `OPEN` |
 | [#11](https://github.com/IcyOllogy/ai-dreamscape/issues/11) | `[Bug]` | [Back to home button obscured on login and signup pages](https://github.com/IcyOllogy/ai-dreamscape/issues/11) | `OPEN` |
 | [#24](https://github.com/IcyOllogy/ai-dreamscape/issues/24) | `[Feature]` | [Commerce: Enable Plan Purchases & Automatic Role Assignment](https://github.com/IcyOllogy/ai-dreamscape/issues/24) | `OPEN` |
+| [#26](https://github.com/IcyOllogy/ai-dreamscape/issues/26) | `[Docs]` | [Comprehensive Menu & Feature Testing Suite](https://github.com/IcyOllogy/ai-dreamscape/issues/26) | `OPEN` |
+| [#27](https://github.com/IcyOllogy/ai-dreamscape/issues/27) | `[Feature]` | [Platform Evolution: SITE_DNA (Lust & Luxury Implementation)](https://github.com/IcyOllogy/ai-dreamscape/issues/27) | `OPEN` |
 
 ---
 
@@ -47,5 +49,15 @@ This file tracks the current open issues in the GitHub repository. Use this as a
 - **Priority:** Normal
 - **Context:** Membership purchase flow and role automation.
 
+### [#26] Comprehensive Menu & Feature Testing Suite
+- **Description:** Methodical verification of every interactive element and navigation path.
+- **Priority:** Normal
+- **Context:** `MENU_TEST.md` protocol.
+
+### [#27] Platform Evolution: SITE_DNA (Lust & Luxury Implementation)
+- **Description:** Enhancing aesthetics, chat realism, and psychological retention.
+- **Priority:** High
+- **Context:** `SITE_DNA.md` blueprint.
+
 ---
-*Last updated: 2026-05-10*
+*Last updated: 2026-05-11*
