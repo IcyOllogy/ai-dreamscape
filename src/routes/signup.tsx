@@ -16,7 +16,7 @@ export const Route = createFileRoute("/signup")({
 
 function Signup() {
   const nav = useNavigate();
-  const [form, setForm] = useState({ email: "", pw: "", name: "" });
+  const [form, setForm] = useState({ email: "", pw: "", name: "", gdpr: false });
 
   return (
     <div className="min-h-screen relative flex items-center justify-center p-6">
@@ -50,6 +50,7 @@ function Signup() {
                 options: {
                   data: {
                     full_name: form.name,
+                    gdpr_consent: form.gdpr,
                   },
                 },
               });
@@ -108,19 +109,38 @@ function Signup() {
               />
             </div>
 
-            <div className="flex items-start gap-3 p-4 bg-white/5 rounded-2xl border border-white/10 mt-6">
-              <div className="mt-1">
-                <input 
-                  id="age-confirm"
-                  name="age-confirm"
-                  type="checkbox" 
-                  required 
-                  className="w-4 h-4 rounded border-white/10 accent-primary" 
-                />
+            <div className="space-y-4 mt-6">
+              <div className="flex items-start gap-3 p-4 bg-white/5 rounded-2xl border border-white/10">
+                <div className="mt-1">
+                  <input 
+                    id="age-confirm"
+                    name="age-confirm"
+                    type="checkbox" 
+                    required 
+                    className="w-4 h-4 rounded border-white/10 accent-primary cursor-pointer" 
+                  />
+                </div>
+                <label htmlFor="age-confirm" className="text-[11px] leading-relaxed text-zinc-400 cursor-pointer">
+                  I confirm I am 18+ and agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a>.
+                </label>
               </div>
-              <label htmlFor="age-confirm" className="text-[11px] leading-relaxed text-zinc-400 cursor-pointer">
-                I confirm I am 18+ and agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a> and <a href="#" className="text-primary hover:underline">Privacy Policy</a>.
-              </label>
+
+              <div className="flex items-start gap-3 p-4 bg-white/5 rounded-2xl border border-white/10">
+                <div className="mt-1">
+                  <input 
+                    id="gdpr-consent"
+                    name="gdpr-consent"
+                    type="checkbox" 
+                    required 
+                    checked={form.gdpr}
+                    onChange={(e) => setForm({ ...form, gdpr: e.target.checked })}
+                    className="w-4 h-4 rounded border-white/10 accent-primary cursor-pointer" 
+                  />
+                </div>
+                <label htmlFor="gdpr-consent" className="text-[11px] leading-relaxed text-zinc-400 cursor-pointer">
+                  I consent to receiving account updates and personalized recommendations via email (GDPR Compliance).
+                </label>
+              </div>
             </div>
 
             <button className="w-full neon-button py-5 text-sm uppercase tracking-[0.2em] mt-4">
