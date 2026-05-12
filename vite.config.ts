@@ -35,12 +35,12 @@ export default defineConfig({
           ],
         },
       }),
-      sentryVitePlugin({
+      process.env.SENTRY_AUTH_TOKEN ? sentryVitePlugin({
         org: process.env.SENTRY_ORG || "ai-dreamscape",
         project: process.env.SENTRY_PROJECT || "ai-dreamscape",
         authToken: process.env.SENTRY_AUTH_TOKEN,
         telemetry: false,
-      }),
+      }) : null,
     ],
     build: {
       sourcemap: true,
